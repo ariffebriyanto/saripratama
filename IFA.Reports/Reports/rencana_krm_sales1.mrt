@@ -1,0 +1,977 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>Connection</Alias>
+        <ConnectionStringEncrypted>1G7Bye9co9nDGc30y0nnL8RY+0lhS1v17ETV8MPc4GPZVGmjyVsBmW9HvQTlXORm3nDRAsJRG6zLeM2ETXRg58RW+wlPV7tJ83DNBGRM7SrDxPXCSE0BhGxcqZRnBGFG1XT1AsZZu/l5eKXQagnkP43IZa/VXZOBywiE3HVMsUbCcM0o0UrTvP1HofRhgLEP2Vq1jMlbmwVyUl34S9A=</ConnectionStringEncrypted>
+        <Name>Connection</Name>
+      </Connection>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <DataSource1 Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="7">
+          <value>no_sp,System.String</value>
+          <value>Nama_Customer,System.String</value>
+          <value>Jenis_sp,System.String</value>
+          <value>keterangan_krm,System.String</value>
+          <value>Nama_Sales,System.String</value>
+          <value>PPN,System.String</value>
+          <value>Status_Inspeksi,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>DataSource1</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="1">
+          <value>id,,22,50</value>
+        </Parameters>
+        <SqlCommand>select DISTINCT v.no_sp,v.Nama_Customer,v.Jenis_sp, v.keterangan_krm,v.Nama_Sales,
+	case when v.Flag_Ppn = 'Y' then 'PPN' else 'NON PPN' end as PPN, v.Status_Inspeksi
+from PROD.dbo.PRODV_MON_SO v
+left join SIF.dbo.SIF_Barang b 
+on v.Kd_Stok = b.Kode_Barang 
+left join (select * from SIF.dbo.SIF_indeks_barang where jns_kegiatan = '02') i 
+on b.kd_jenis = i.kd_jenis and b.kd_tipe = i.kd_tipe and b.kd_ukuran = i.kd_ukuran 
+where(Len(v.no_sp) &gt; 5 And v.qty_sisa_krm &gt; 0 ) 
+and v.Status_Inspeksi = @id</SqlCommand>
+      </DataSource1>
+      <rcana_kirim Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>rcana_kirim</Alias>
+        <Columns isList="true" count="12">
+          <value>no_seq_d,System.String</value>
+          <value>Kode_Barang,System.String</value>
+          <value>Nama_Barang,System.String</value>
+          <value>qty_order,System.Decimal</value>
+          <value>QtyCetak,System.Decimal</value>
+          <value>No_sp,System.String</value>
+          <value>prioritas,System.String</value>
+          <value>keterangan,System.String</value>
+          <value>Kd_Satuan,System.String</value>
+          <value>Jenis_sp,System.String</value>
+          <value>SP_Reff,System.String</value>
+          <value>Status_Inspeksi,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>rcana_kirim</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>SELECT TOP (1000) [no_seq_d]
+      ,[Kode_Barang]
+      ,[Nama_Barang]
+      ,[qty_order]
+      ,[QtyCetak]
+      ,[No_sp]
+      ,[prioritas]
+      ,[keterangan]
+      ,[Kd_Satuan]
+      ,[Jenis_sp]
+      ,[SP_Reff]
+      ,[Status_Inspeksi]
+  FROM [AMERICAN_REPORT].[dbo].[rcana_kirim]</SqlCommand>
+      </rcana_kirim>
+    </DataSources>
+    <Relations isList="true" count="1">
+      <Name Ref="5" type="DataRelation" isKey="true">
+        <Alias>Name</Alias>
+        <ChildColumns isList="true" count="1">
+          <value>No_sp</value>
+        </ChildColumns>
+        <ChildSource isRef="4" />
+        <Dictionary isRef="1" />
+        <Name>Name</Name>
+        <NameInSource>Relation</NameInSource>
+        <ParentColumns isList="true" count="1">
+          <value>no_sp</value>
+        </ParentColumns>
+        <ParentSource isRef="3" />
+      </Name>
+    </Relations>
+    <Report isRef="0" />
+    <Variables isList="true" count="11">
+      <value>Formula_x0020_Fields,tgl,tgl,System.String,CDate_x0020__x0028__x007B_Command.tgl_inv_x007D__x0029_,True,False,True</value>
+      <value>Formula_x0020_Fields,nama,nama,System.String,_x007B_Command.nama_x007D__x0020_,True,False,True</value>
+      <value>Formula_x0020_Fields,alamat,alamat,System.String,_x007B_Command.alamat_x007D_,True,False,True</value>
+      <value>Formula_x0020_Fields,disc,disc,System.String,_x0027__x0028__x0027__x0020__x002B__x0020_IIF_x0028__x007B_Command.disc1_x007D__x003C__x003E_0_x002C_IIF_x0020__x0028_Length_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc1_x007D__x0029__x0029__x003D_5_x002C__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc1_x007D__x0029__x002C__x0020_2_x0029__x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc1_x007D__x0029__x002C__x0020_1_x0029__x0029__x002C__x0027__x0027__x0029__x0020__x002B__x0020__x0020_IIF_x0028__x007B_Command.disc1_x007D__x003C__x003E_0_x002C_IIF_x0020__x0028_Length_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc2_x007D__x0029__x0029__x003D_5_x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc2_x007D__x0029__x002C__x0020_2_x0029__x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc2_x007D__x0029__x002C__x0020_1_x0029__x0029__x002C__x0027__x0027__x0029__x0020__x002B__x0020__x0020_IIF_x0028__x007B_Command.disc3_x007D__x003C__x003E_0_x002C_IIF_x0020__x0028_Length_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc3_x007D__x0029__x0029__x003D_5_x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc3_x007D__x0029__x002C__x0020_2_x0029__x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc3_x007D__x0029__x002C__x0020_1_x0029__x0029__x002C__x0027__x0027__x0029__x0020__x002B__x0020__x0020_IIF_x0028__x007B_Command.disc4_x007D__x003C__x003E_0_x002C_IIF_x0020__x0028_Length_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc4_x007D__x0029__x0029__x003D_5_x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc4_x007D__x0029__x002C__x0020_2_x0029__x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc4_x007D__x0029__x002C__x0020_1_x0029__x0029__x002C__x0027__x0027__x0029__x0020__x002B__x0020__x0020_IIF_x0028__x007B_Command.disc5_x007D__x003C__x003E_0_x002C_IIF_x0020__x0028_Length_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc5_x007D__x0029__x0029__x003D_5_x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc5_x007D__x0029__x002C__x0020_2_x0029__x002C__x0020__x0027__x002B__x0027__x0020__x002B__x0020_Left_x0020__x0028_CStr_x0020__x0028__x007B_Command.disc5_x007D__x0029__x002C__x0020_1_x0029__x0029__x002C__x0027__x0027__x0029__x0020__x002B__x0020__x0020__x0027__x0029__x0027__x0020__x0020_,True,False,True</value>
+      <value>Formula_x0020_Fields,stotal,stotal,System.String,Sum_x0020__x0028__x007B_Command.jml_val_trans_x007D__x0029_-_x0020__x0028_Sum_x0028__x007B_Command.jml_val_trans_x007D__x0029__x002A__x007B_Command.discount_x007D__x002F_100_x0029__x0020_-_x007B_Command.potongan_x007D__x0020__x002B__x0020__x007B_Command.biaya_x007D_,True,False,True</value>
+      <value>ParameterField,username,username,,System.String,,False,False,True,True</value>
+      <value>ParameterField,dummy,dummy,,System.String,,False,False,True,True</value>
+      <value>Formula_x0020_Fields,QTYCETAK,QTYCETAK,System.String,if_x0020__x007B_rcana_kirim.Jenis_sp_x007D__x0020__x003D__x0020__x0027_BOOKING_x0020_ORDER_x0027__x0020_or_x0020__x007B_rcana_kirim.Jenis_sp_x007D__x0020__x003D__x0020__x0027_BO_x0020_PAKET_x0027__x0020_then_x0020__x007B_rcana_kirim.qty_order_x007D__x0020_-_x007B_rcana_kirim.QtyCetak_x007D__x0020_else_x0020__x0020__x007B_rcana_kirim.qty_order_x007D_,True,False,True</value>
+      <value>Formula_x0020_Fields,nomor,nomor,System.String,val_x0028__x007B_rcana_kirim.no_seq_d_x007D__x0029_,True,False,True</value>
+      <value>ParameterField,Pm_Command_no_sp,Pm_Command_no_sp,,System.String,,False,False,True,True</value>
+      <value>ParameterField,Pm__dummy,Pm__dummy,,System.String,,False,False,True,True</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="1">
+    <value>InternalVersion,_x0032_017.1.11.0</value>
+  </MetaTags>
+  <Pages isList="true" count="2">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="7">
+        <ReportHeader1 Ref="7" type="ReportTitleBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,20,777,15.35</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Name>ReportHeader1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </ReportHeader1>
+        <PageFooter1 Ref="8" type="PageFooterBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,1109.62,777,9.38</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Name>PageFooter1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageFooter1>
+        <PageHeader1 Ref="9" type="PageHeaderBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,75.35,777,15.35</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Name>PageHeader1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </PageHeader1>
+        <Details Ref="10" type="DataBand" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,130.7,777,0</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>DataSource1</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Name>Details</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </Details>
+        <Details1 Ref="11" type="ChildBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,170.7,777,155.76</ClientRectangle>
+          <Components isList="true" count="23">
+            <Text6 Ref="12" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>493.75,38.75,83.33,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Jenis Do</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text6>
+            <Text7 Ref="13" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>586.46,38.75,8.33,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text7>
+            <Text5 Ref="14" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>141.67,41.67,8.33,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text5>
+            <Text4 Ref="15" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>141.67,80.21,8.33,19.79</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text4>
+            <Text2 Ref="16" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>8.33,80.21,117.22,19.79</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>No  Do</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text2>
+            <Text3 Ref="17" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>8.33,41.67,133.33,24.72</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Nama Pelanggan</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text3>
+            <jenissp1 Ref="18" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>602.08,38.75,166.67,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>jenissp1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.Jenis_sp}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </jenissp1>
+            <nosp1 Ref="19" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>158.33,81.25,308.33,18.75</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>nosp1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.no_sp}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </nosp1>
+            <NamaCustomer1 Ref="20" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>158.33,41.67,324.31,19.17</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>NamaCustomer1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.Nama_Customer}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </NamaCustomer1>
+            <Subreport1 Ref="21" type="SubReport" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>0,133.33,765.14,21.39</ClientRectangle>
+              <Components isList="true" count="0" />
+              <Name>Subreport1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <SubReportPageGuid>c47a8162e35a4ac0a920f9a566f42336</SubReportPageGuid>
+            </Subreport1>
+            <Text1 Ref="22" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>200.28,11.67,308.33,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,12,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Daftar Persiapan Barang</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text1>
+            <dummy1 Ref="23" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>636.46,0,138.54,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>dummy1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.Status_Inspeksi}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </dummy1>
+            <keterangankrm1 Ref="24" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>602.08,107.08,175,19.17</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>keterangankrm1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.keterangan_krm}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </keterangankrm1>
+            <Text10 Ref="25" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>586.46,106.88,8.33,19.58</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text10>
+            <Text9 Ref="26" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>493.75,106.81,91.67,19.79</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Keterangan</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text9>
+            <Text11 Ref="27" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>533.33,0,90.97,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Tanggal Cetak</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text11>
+            <Text12 Ref="28" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>624.31,0,8.33,14.17</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text12>
+            <NamaSales1 Ref="29" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>158.33,108.33,308.33,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>NamaSales1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.Nama_Sales}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </NamaSales1>
+            <Text13 Ref="30" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>8.33,108.33,117.22,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>Nama Sales</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text13>
+            <Text14 Ref="31" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>141.67,108.33,8.33,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text14>
+            <Text8 Ref="32" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>493.75,77.08,83.33,18.75</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>PPN</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text8>
+            <Text15 Ref="33" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>586.46,79.17,8.33,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text15>
+            <PPN1 Ref="34" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>602.08,79.17,166.67,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>PPN1</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>{DataSource1.PPN}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </PPN1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Details1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </Details1>
+        <Details2 Ref="35" type="ChildBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,366.46,777,16.67</ClientRectangle>
+          <Components isList="true" count="2">
+            <Picture1 Ref="36" type="Image" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.67,0,18.75,16.67</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Name>Picture1</Name>
+              <Page isRef="6" />
+              <Parent isRef="35" />
+            </Picture1>
+            <Line1 Ref="37" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>41.67,8.33,741.67,1</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="38" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Name>Line1</Name>
+              <Page isRef="6" />
+              <Parent isRef="35" />
+              <Size>0</Size>
+              <StartCap Ref="39" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+              <Style>Dot</Style>
+            </Line1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>Details2</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </Details2>
+        <ReportFooter1 Ref="40" type="ReportSummaryBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,423.13,777,9.38</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Name>ReportFooter1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </ReportFooter1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>20460bbed51a44a593afdf20a1e6bdb6</Guid>
+      <Margins>25,25,25,25</Margins>
+      <Name>Page1</Name>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <TitleBeforeHeader>True</TitleBeforeHeader>
+      <Watermark Ref="41" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+    <kirim Ref="42" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="6">
+        <ReportHeader1_1 Ref="43" type="ReportTitleBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,0.2,765.14,55.97</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text9_1 Ref="44" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>8.33,0,308.33,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,12</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="43" />
+              <Text>Nomor Ref            :   {rcana_kirim.SP_Reff}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+            </Text9_1>
+            <Text16 Ref="45" type="Text" isKey="true">
+              <Border>All;Black;1.38888895511627;Solid;False;4;Black</Border>
+              <Brush>[251:213:181]</Brush>
+              <ClientRectangle>60,30,150,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="42" />
+              <Parent isRef="43" />
+              <Text>{DataSource1.no_sp}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text16>
+            <Text17 Ref="46" type="Text" isKey="true">
+              <Border>All;Black;1.38888895511627;Solid;False;4;Black</Border>
+              <Brush>[251:213:181]</Brush>
+              <ClientRectangle>10,30,50,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="42" />
+              <Parent isRef="43" />
+              <Text>no_sp</Text>
+              <TextBrush>Black</TextBrush>
+            </Text17>
+            <Text18 Ref="47" type="Text" isKey="true">
+              <Border>All;Black;1.38888895511627;Solid;False;4;Black</Border>
+              <Brush>[251:213:181]</Brush>
+              <ClientRectangle>550,10,150,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="42" />
+              <Parent isRef="43" />
+              <Text>{rcana_kirim.No_sp}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text18>
+            <Text19 Ref="48" type="Text" isKey="true">
+              <Border>All;Black;1.38888895511627;Solid;False;4;Black</Border>
+              <Brush>[251:213:181]</Brush>
+              <ClientRectangle>460,10,50,20</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="42" />
+              <Parent isRef="43" />
+              <Text>No_sp</Text>
+              <TextBrush>Black</TextBrush>
+            </Text19>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportHeader1_1</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+        </ReportHeader1_1>
+        <ReportHeader2 Ref="49" type="ReportTitleBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,56.57,765.14,28.19</ClientRectangle>
+          <Components isList="true" count="9">
+            <Text2_1 Ref="50" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>50,0,102.5,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>Kode Barang</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text2_1>
+            <Text7_1 Ref="51" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>634.38,0,115.63,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>Keterangan</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text7_1>
+            <Text8_1 Ref="52" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>541.67,0,84.38,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>Satuan</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text8_1>
+            <Text5_1 Ref="53" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>457.01,0,76.32,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>Jumlah</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text5_1>
+            <Text10_1 Ref="54" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>4.17,0,37.5,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>No</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text10_1>
+            <Text3_1 Ref="55" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>158.33,0,290,24.38</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Text>Nama Barang</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text3_1>
+            <StartPointPrimitive2 Ref="56" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>4.17,0,0,0</ClientRectangle>
+              <Name>StartPointPrimitive2</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <ReferenceToGuid>9ed1f7e67c434f7887d88902ff5f930b</ReferenceToGuid>
+            </StartPointPrimitive2>
+            <Line1_1 Ref="57" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>4.17,25.69,754.17,1</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="58" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Name>Line1_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <Size>1.388889</Size>
+              <StartCap Ref="59" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </Line1_1>
+            <EndPointPrimitive3 Ref="60" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+              <ClientRectangle>758.34,2.85,0,0</ClientRectangle>
+              <Name>EndPointPrimitive3</Name>
+              <Page isRef="42" />
+              <Parent isRef="49" />
+              <ReferenceToGuid>9ed1f7e67c434f7887d88902ff5f930b</ReferenceToGuid>
+            </EndPointPrimitive3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportHeader2</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+        </ReportHeader2>
+        <Details1_1 Ref="61" type="DataBand" isKey="true">
+          <Brush>White</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,85.16,765.14,25</ClientRectangle>
+          <Components isList="true" count="6">
+            <KodeBarang1 Ref="62" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>50,0,102.5,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>KodeBarang1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.Kode_Barang}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </KodeBarang1>
+            <NamaBarang1 Ref="63" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>158.33,0,290,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>NamaBarang1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.Nama_Barang}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </NamaBarang1>
+            <keterangan1 Ref="64" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>634.38,0,115.63,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>keterangan1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.keterangan}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </keterangan1>
+            <KdSatuan1 Ref="65" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>541.67,0,84.38,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>KdSatuan1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.Kd_Satuan}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </KdSatuan1>
+            <QTYCETAK1 Ref="66" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>457.01,0,76.32,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>QTYCETAK1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.QtyCetak}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </QTYCETAK1>
+            <RecordNumber1 Ref="67" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>4.17,0,44.65,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>RecordNumber1</Name>
+              <Page isRef="42" />
+              <Parent isRef="61" />
+              <Text>{rcana_kirim.no_seq_d}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </RecordNumber1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName>Relation</DataRelationName>
+          <DataSourceName>rcana_kirim</DataSourceName>
+          <Filters isList="true" count="0" />
+          <MasterComponent isRef="10" />
+          <Name>Details1_1</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+          <Sort isList="true" count="0" />
+        </Details1_1>
+        <ReportFooter1_1 Ref="68" type="ReportSummaryBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,110.56,765.14,13.89</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Name>ReportFooter1_1</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+        </ReportFooter1_1>
+        <ReportFooter2 Ref="69" type="ReportSummaryBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,124.85,765.14,40.35</ClientRectangle>
+          <Components isList="true" count="4">
+            <Text25 Ref="70" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>45.21,25,107.29,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Verdana,9</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="42" />
+              <Parent isRef="69" />
+              <Text>(.....................)</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text25>
+            <Text26 Ref="71" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>45.21,0,107.29,25</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Verdana,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="42" />
+              <Parent isRef="69" />
+              <Text>Persiapan,</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text26>
+            <Text4_1 Ref="72" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>598.19,0,107.29,20.83</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Verdana,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="69" />
+              <Text>Cek,</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text4_1>
+            <Text6_1 Ref="73" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>598.19,25,107.29,15.35</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Verdana,9</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6_1</Name>
+              <Page isRef="42" />
+              <Parent isRef="69" />
+              <Text>(.....................)</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text6_1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportFooter2</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+        </ReportFooter2>
+        <Box1 Ref="74" type="RectanglePrimitive" isKey="true">
+          <ClientRectangle>4.17,56.57,754.17,2.85</ClientRectangle>
+          <Color>Black</Color>
+          <Guid>9ed1f7e67c434f7887d88902ff5f930b</Guid>
+          <Name>Box1</Name>
+          <Page isRef="42" />
+          <Parent isRef="42" />
+        </Box1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>c47a8162e35a4ac0a920f9a566f42336</Guid>
+      <Margins>39,39,39,39</Margins>
+      <Name>kirim</Name>
+      <PageWidth>843.14</PageWidth>
+      <Report isRef="0" />
+      <TitleBeforeHeader>True</TitleBeforeHeader>
+      <Watermark Ref="75" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </kirim>
+  </Pages>
+  <PrinterSettings Ref="76" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportAuthor isNull="true" />
+  <ReportChanged>10/2/2020 1:39:49 PM</ReportChanged>
+  <ReportCreated>9/28/2020 11:50:15 AM</ReportCreated>
+  <ReportDescription isNull="true" />
+  <ReportFile>E:\PROJECT\SPT\IFA.Reports\Reports\rencana_krm_sales1.mrt</ReportFile>
+  <ReportGuid>d9165ae49b5f410c94d7b378e4b94d95</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>HundredthsOfInch</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

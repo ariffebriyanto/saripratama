@@ -1,0 +1,1085 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>Connection</Alias>
+        <ConnectionStringEncrypted>1ML3C08MW/XpR6HcS1woXtF4tYjGQbvheV/okWEZJWeL1FMJY0hx7c1aqexndOsq8NB7Ak5ZUYVhfOUYT3jkbp5YwUnNUfPFwhjR8WMFoHvFVFPCxllLgOhBnIRObGUXjfL1AuVMU/HHGISYakykfuFaT4hiVA==</ConnectionStringEncrypted>
+        <Name>Connection</Name>
+      </Connection>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <DataSource1 Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="8">
+          <value>tipe_rek,System.String</value>
+          <value>grup2,System.String</value>
+          <value>nm_grup2,System.String</value>
+          <value>grup3,System.String</value>
+          <value>nm_grup3,System.String</value>
+          <value>saldo,System.Decimal</value>
+          <value>bln,System.String</value>
+          <value>thn,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>DataSource1</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="3">
+          <value>val,,22,50</value>
+          <value>thn,,22,50</value>
+          <value>bln,,22,50</value>
+        </Parameters>
+        <SqlCommand>  -- Query Aktiva Rekap
+Select DATENAME(MONTH,'2020' + @bln + '01') as bln, @thn as thn,Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3,Sum(Query_A.saldo) saldo 
+From (SELECT b.tipe_rek,
+	b.grup_level4 AS grup1,
+	(SELECT aa.nm_buku_besar FROM S_sif_buku_besar aa WHERE aa.kd_buku_besar = b.grup_level4) AS nm_grup1,
+  b.grup_level3 AS grup2,
+(SELECT bb.nm_buku_besar FROM S_sif_buku_besar bb WHERE bb.kd_buku_besar = b.grup_level3) AS nm_grup2,
+  b.grup_level2 AS grup3,
+(SELECT cc.nm_buku_besar FROM S_sif_buku_besar cc WHERE cc.kd_buku_besar = b.grup_level2) AS nm_grup3,
+  b.grup_level1 AS grup4,
+(SELECT dd.nm_buku_besar FROM S_sif_buku_besar dd WHERE dd.kd_buku_besar = b.grup_level1) AS nm_grup4,
+  a.kd_buku_besar,
+  b.nm_buku_besar,
+  sum(a.jml_val_debet - a.jml_val_kredit) AS saldo
+FROM
+  S_sif_buku_besar b
+  LEFT OUTER JOIN s_fin_neraca_saldo a ON (b.kd_buku_besar = a.kd_buku_besar)
+WHERE
+  a.kd_buku_besar = b.kd_buku_besar AND 
+  a.kd_valuta = @val AND 
+  a.thn_buku = @thn AND 
+  a.bln_buku &lt;= @bln AND 
+  b.tipe_rek IN ('A') and b.rec_stat='Y'
+GROUP BY
+  b.tipe_rek,
+  b.grup_level4,
+  b.grup_level3,
+  b.grup_level2,
+  b.grup_level1,
+  a.kd_buku_besar,
+  b.nm_buku_besar) Query_A
+  where Query_A.saldo &lt;&gt; 0
+  group by  Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3
+  order by Query_A.grup3 ASC</SqlCommand>
+      </DataSource1>
+      <DataSource2 Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>DataSource2</Alias>
+        <Columns isList="true" count="6">
+          <value>tipe_rek,System.String</value>
+          <value>grup2,System.String</value>
+          <value>nm_grup2,System.String</value>
+          <value>grup3,System.String</value>
+          <value>nm_grup3,System.String</value>
+          <value>saldo,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>DataSource2</Name>
+        <NameInSource>Connection</NameInSource>
+        <Parameters isList="true" count="3">
+          <value>val,,22,50</value>
+          <value>thn,,22,50</value>
+          <value>bln,,22,50</value>
+        </Parameters>
+        <SqlCommand>--Query Pasiva 1 Rekap
+Select Passiva1.* From (
+Select Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3,Sum(Query_A.saldo) saldo  From (SELECT 
+	b.tipe_rek,
+	b.grup_level4 AS grup1,
+	(SELECT aa.nm_buku_besar FROM s_sif_buku_besar aa WHERE aa.kd_buku_besar = b.grup_level4) AS nm_grup1,
+  b.grup_level3 AS grup2,
+(SELECT bb.nm_buku_besar FROM s_sif_buku_besar bb WHERE bb.kd_buku_besar = b.grup_level3) AS nm_grup2,
+  b.grup_level2 AS grup3,
+(SELECT cc.nm_buku_besar FROM s_sif_buku_besar cc WHERE cc.kd_buku_besar = b.grup_level2) AS nm_grup3,
+  b.grup_level1 AS grup4,
+(SELECT dd.nm_buku_besar FROM s_sif_buku_besar dd WHERE dd.kd_buku_besar = b.grup_level1) AS nm_grup4,
+  a.kd_buku_besar,
+  b.nm_buku_besar,
+  sum(a.jml_val_debet - a.jml_val_kredit)  AS saldo
+FROM
+  s_sif_buku_besar b
+  LEFT OUTER JOIN s_fin_neraca_saldo
+ a ON (b.kd_buku_besar = a.kd_buku_besar)
+WHERE
+  a.kd_buku_besar = b.kd_buku_besar AND 
+  a.kd_valuta = @val AND 
+  a.thn_buku = @thn AND 
+  a.bln_buku &lt;= @bln AND 
+  b.tipe_rek IN ('P') and b.rec_stat='Y' AND NOT
+  SUBSTRING(b.kd_buku_besar,1,1) = '3'
+GROUP BY
+  b.tipe_rek,
+  b.grup_level4,
+  b.grup_level3,
+  b.grup_level2,
+  b.grup_level1,
+  a.kd_buku_besar,
+  b.nm_buku_besar) Query_A
+  where Query_A.saldo &lt;&gt; 0
+  group by Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3) Passiva1
+  UNION ALL
+Select Passiva2.* From ( 
+	Select Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3,Sum(Query_A.saldo) saldo From (SELECT 
+	b.tipe_rek,
+	b.grup_level4 AS grup1,
+	(SELECT aa.nm_buku_besar FROM s_sif_buku_besar aa WHERE aa.kd_buku_besar = b.grup_level4) AS nm_grup1,
+  b.grup_level3 AS grup2,
+(SELECT bb.nm_buku_besar FROM s_sif_buku_besar bb WHERE bb.kd_buku_besar = b.grup_level3) AS nm_grup2,
+  b.grup_level2 AS grup3,
+(SELECT cc.nm_buku_besar FROM s_sif_buku_besar cc WHERE cc.kd_buku_besar = b.grup_level2) AS nm_grup3,
+  b.grup_level1 AS grup4,
+(SELECT dd.nm_buku_besar FROM s_sif_buku_besar dd WHERE dd.kd_buku_besar = b.grup_level1) AS nm_grup4,
+  a.kd_buku_besar,
+  b.nm_buku_besar,
+  sum(a.jml_val_debet - a.jml_val_kredit) AS saldo
+FROM
+  s_sif_buku_besar b
+  LEFT OUTER JOIN s_fin_neraca_saldo
+ a ON (b.kd_buku_besar = a.kd_buku_besar)
+WHERE
+  a.kd_buku_besar = b.kd_buku_besar AND 
+  a.kd_valuta = @val AND 
+  a.thn_buku = @thn AND 
+  a.bln_buku &lt;= @bln AND 
+  b.tipe_rek IN ('P') and b.rec_stat='Y' AND
+  SUBSTRING(b.kd_buku_besar,1,1) = '3' AND NOT 
+   b.kd_buku_besar IN ('3200004')
+GROUP BY
+  b.tipe_rek,
+  b.grup_level4,
+  b.grup_level3,
+  b.grup_level2,
+  b.grup_level1,
+  a.kd_buku_besar,
+  b.nm_buku_besar) Query_A
+  where Query_A.saldo &lt;&gt; 0 
+  group by  Query_A.tipe_rek,Query_A.grup2,Query_A.nm_grup2,Query_A.grup3,Query_A.nm_grup3) Passiva2</SqlCommand>
+      </DataSource2>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="3">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="6">
+        <PageHeader1 Ref="6" type="PageHeaderBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,0.2,7.49,0.59</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Guid>392b0f70c45749e6879e45a03ba3b436</Guid>
+          <Name>PageHeader1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </PageHeader1>
+        <PageFooter1 Ref="7" type="PageFooterBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,10.49,7.49,0.42</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text28 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>4.5,0.11,2.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>79ccd3e931934087a9707e8d248ee0f6</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="5" />
+              <Parent isRef="7" />
+              <Text>Hal {PageNumber}/{TotalPageCount}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text28>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>48fd9cff8d7e46f485e0512c8d3db4ac</Guid>
+          <Name>PageFooter1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </PageFooter1>
+        <ReportHeader1 Ref="9" type="ReportTitleBand" isKey="true">
+          <Border>Bottom;Black;1.5;Solid;False;4;Black</Border>
+          <Brush>White</Brush>
+          <ClientRectangle>0,1.19,7.49,0.67</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text2 Ref="10" type="Text" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>1.89,0.02,4.34,0.29</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Bookman Old Style,20,Bold</Font>
+              <Guid>573104993d85429092291883a6717b19</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="5" />
+              <Parent isRef="9" />
+              <Text>LAPORAN NERACA</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+            </Text2>
+            <Text29 Ref="11" type="Text" isKey="true">
+              <Border>None;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>1.9,0.31,4.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="5" />
+              <Parent isRef="9" />
+              <Text>Periode: {DataSource1.bln} {DataSource1.thn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text29>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>f97a1bdf166d4d13988b16ae98b87d6a</Guid>
+          <Name>ReportHeader1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </ReportHeader1>
+        <Details1 Ref="12" type="ChildBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,2.26,7.49,0.25</ClientRectangle>
+          <Components isList="true" count="2">
+            <Subreport1 Ref="13" type="SubReport" isKey="true">
+              <Border>Right;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>0.03,0.01,3.68,0.24</ClientRectangle>
+              <Components isList="true" count="0" />
+              <Guid>9eb674606c714f038914304e66e5b613</Guid>
+              <Name>Subreport1</Name>
+              <Page isRef="5" />
+              <Parent isRef="12" />
+              <SubReportPageGuid>e26e844d6ded4b40b0fcb50305c6804c</SubReportPageGuid>
+            </Subreport1>
+            <Subreport2 Ref="14" type="SubReport" isKey="true">
+              <Brush>[0:255:255:255]</Brush>
+              <ClientRectangle>3.72,0.01,3.68,0.24</ClientRectangle>
+              <Components isList="true" count="0" />
+              <Guid>d9bcfa0c66fc48708642bacd4e51d55b</Guid>
+              <Name>Subreport2</Name>
+              <Page isRef="5" />
+              <Parent isRef="12" />
+              <SubReportPageGuid>662aa9b4093d4e4bb4b3f663c84c3c92</SubReportPageGuid>
+            </Subreport2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>9e5b3e65e68444fbabb73140ca9d07b2</Guid>
+          <Name>Details1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </Details1>
+        <Details2 Ref="15" type="ChildBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,2.91,7.49,0.27</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Guid>3ed9b1c7f738468bbe5fc315249172da</Guid>
+          <Name>Details2</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </Details2>
+        <ReportFooter1 Ref="16" type="ReportSummaryBand" isKey="true">
+          <Brush>White</Brush>
+          <ClientRectangle>0,3.58,7.49,0.42</ClientRectangle>
+          <Components isList="true" count="1">
+            <StartPointPrimitive1 Ref="17" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+              <ClientRectangle>6.24,0.08,0,0</ClientRectangle>
+              <Name>StartPointPrimitive1</Name>
+              <Page isRef="5" />
+              <Parent isRef="16" />
+              <ReferenceToGuid>70e1b50a5e02465ebb909a5b334649c2</ReferenceToGuid>
+            </StartPointPrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>496249a3b80d4b4f821b2318b5e3c869</Guid>
+          <Name>ReportFooter1</Name>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+        </ReportFooter1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>1b7e0ecf096345a2a73416c132886b82</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Page1</Name>
+      <PageHeight>11.69</PageHeight>
+      <PageWidth>8.27</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="18" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+    <Rep_Keu_Passiva_rpt Ref="19" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="9">
+        <ReportTitleBand1 Ref="20" type="ReportTitleBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,0.2,3.68,0.15</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Guid>0abb093aa4bb4779bdd89ca9e6b75fbc</Guid>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+        </ReportTitleBand1>
+        <ReportTitleBand2 Ref="21" type="ReportTitleBand" isKey="true">
+          <Brush>Silver</Brush>
+          <ClientRectangle>0,0.75,3.68,0.31</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text7 Ref="22" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.05,2.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10,Bold</Font>
+              <Guid>7db5964063fb458fae55315b3f29c15a</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="19" />
+              <Parent isRef="21" />
+              <Text>Rekening Pasiva</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text7>
+            <Text8 Ref="23" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.3,0.05,1.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10,Bold</Font>
+              <Guid>58e5a69b712146d88b3126157d382a28</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="19" />
+              <Parent isRef="21" />
+              <Text>Saldo</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text8>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>862084f582d84c78909ea8de693e6188</Guid>
+          <Name>ReportTitleBand2</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+        </ReportTitleBand2>
+        <GroupHeaderBand4 Ref="24" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,1.46,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text15 Ref="25" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Enabled>False</Enabled>
+              <Font>Arial,8,Bold</Font>
+              <Guid>6262a00fe9da42e8b776b4279eec6f6a</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="19" />
+              <Parent isRef="24" />
+              <Text>{DataSource2.tipe_rek}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text15>
+          </Components>
+          <Condition>{DataSource2.tipe_rek}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>d3bdc6f0731d46f39b5d9f7aa1146be0</Guid>
+          <Name>GroupHeaderBand4</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand4>
+        <GroupHeaderBand5 Ref="26" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.06,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text16 Ref="27" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>4f0daf44623a4aedae26e82491031b66</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="19" />
+              <Parent isRef="26" />
+              <Text>{DataSource2.nm_grup2}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text16>
+          </Components>
+          <Condition>{DataSource2.grup2}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>cd32b76f39554b3ba069deb41f89310b</Guid>
+          <Name>GroupHeaderBand5</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand5>
+        <GroupHeaderBand6 Ref="28" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.66,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text17 Ref="29" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.1,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>9cc3e46c3c2a4a89910e3b6dfa549a74</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="19" />
+              <Parent isRef="28" />
+              <Text>{DataSource2.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text17>
+          </Components>
+          <Condition>{DataSource2.grup3}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>72187a875f574c2eb747ff0691e93dda</Guid>
+          <Name>GroupHeaderBand6</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand6>
+        <DataBand2 Ref="30" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,3.26,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text18 Ref="31" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0.4,0.04,1.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>23cc855cc9c3439e80f9a9eb6093b90d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="19" />
+              <Parent isRef="30" />
+              <Text>{DataSource2.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </Text18>
+            <Text21 Ref="32" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.3,0.04,1.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>b994d52ceee94bd2b3d9f4fc0a1804bb</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="19" />
+              <Parent isRef="30" />
+              <Text>{DataSource2.saldo}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="33" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text21>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>DataSource2</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Guid>749855f627634f359d6d5cf547a88ae8</Guid>
+          <Name>DataBand2</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+          <Sort isList="true" count="0" />
+        </DataBand2>
+        <GroupFooterBand3 Ref="34" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,3.86,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text22 Ref="35" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>7a119194a0b34af18a4acb541f9fee63</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="19" />
+              <Parent isRef="34" />
+              <Text>{DataSource2.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text22>
+            <Text23 Ref="36" type="Text" isKey="true">
+              <Border>Top;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>158b4b82b5b74528b02c5c9886573d5c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="19" />
+              <Parent isRef="34" />
+              <Text>{Sum(GroupHeaderBand6,DataSource2.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="37" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text23>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>6bd7c3ebdc844377a3dedd05e04a78ff</Guid>
+          <Name>GroupFooterBand3</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+        </GroupFooterBand3>
+        <GroupFooterBand4 Ref="38" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.46,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text24 Ref="39" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>0e1013d3b1514243adedce33c31aa3c3</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="19" />
+              <Parent isRef="38" />
+              <Text>{DataSource2.nm_grup2}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text24>
+            <Text25 Ref="40" type="Text" isKey="true">
+              <Border>Top;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>94b15cce2024447d9ea418074fc53630</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="19" />
+              <Parent isRef="38" />
+              <Text>{Sum(GroupHeaderBand5,DataSource2.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="41" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text25>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Guid>380d7331ad0246ee8466a5d7fb27ec2f</Guid>
+          <Name>GroupFooterBand4</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+        </GroupFooterBand4>
+        <GroupFooterBand6 Ref="42" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.06,3.68,0.3</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text26 Ref="43" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>b46b6c51af224bcb97ab7a9e31af4e8c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="19" />
+              <Parent isRef="42" />
+              <Text>TOTAL PASIVA</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text26>
+            <Text27 Ref="44" type="Text" isKey="true">
+              <Border>Top, Bottom;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>11d7f3a9276d42c6bd9f49665aecee53</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="19" />
+              <Parent isRef="42" />
+              <Text>{Sum(GroupHeaderBand4,DataSource2.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="45" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text27>
+            <HorizontalLinePrimitive1 Ref="46" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>2.5,0.04,1.1,0.01</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="47" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>a7c0b53503944767b28541eaaf85b2ac</Guid>
+              <Name>HorizontalLinePrimitive1</Name>
+              <Page isRef="19" />
+              <Parent isRef="42" />
+              <StartCap Ref="48" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>aca88078be7740069641a9f8009babc8</Guid>
+          <Name>GroupFooterBand6</Name>
+          <Page isRef="19" />
+          <Parent isRef="19" />
+        </GroupFooterBand6>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>662aa9b4093d4e4bb4b3f663c84c3c92</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Rep_Keu_Passiva.rpt</Name>
+      <PageHeight>11</PageHeight>
+      <PageWidth>4.46</PageWidth>
+      <PaperSize>Letter</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="49" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Rep_Keu_Passiva_rpt>
+    <RptKeu1_aktiva_rpt Ref="50" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="9">
+        <ReportHeader1_4 Ref="51" type="ReportTitleBand" isKey="true">
+          <Brush>HatchBrush,BackwardDiagonal,DarkGray,White</Brush>
+          <ClientRectangle>0,0.2,3.68,0.15</ClientRectangle>
+          <Components isList="true" count="0" />
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Guid>3793b4b8cf3748b4b92c05b05d5e6c11</Guid>
+          <Name>ReportHeader1_4</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+        </ReportHeader1_4>
+        <ReportHeader2_3 Ref="52" type="ReportTitleBand" isKey="true">
+          <Brush>Silver</Brush>
+          <ClientRectangle>0,0.75,3.68,0.31</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text1 Ref="53" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.05,2.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10,Bold</Font>
+              <Guid>781a31e3c9f84fba88cf131d4dff0980</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="50" />
+              <Parent isRef="52" />
+              <Text>Rekening Aktiva</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text1>
+            <Text3 Ref="54" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.3,0.05,1.2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,10,Bold</Font>
+              <Guid>2167240bd6b64171b79cfcffe387948f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="50" />
+              <Parent isRef="52" />
+              <Text>Saldo</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>6aa7dc1b8a4045b6927ef68e3c38c323</Guid>
+          <Name>ReportHeader2_3</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+        </ReportHeader2_3>
+        <GroupHeaderBand1 Ref="55" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,1.46,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text4 Ref="56" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Enabled>False</Enabled>
+              <Font>Arial,8,Bold</Font>
+              <Guid>db600d72da114a429e471e0cdd859b46</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="50" />
+              <Parent isRef="55" />
+              <Text>{DataSource1.tipe_rek}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text4>
+          </Components>
+          <Condition>{DataSource1.tipe_rek}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>53a16d4f05124a09ada79b98efc0752b</Guid>
+          <Name>GroupHeaderBand1</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand1>
+        <GroupHeaderBand2 Ref="57" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.06,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text5 Ref="58" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>a2427c146a98413996fba98ba22b84d6</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="50" />
+              <Parent isRef="57" />
+              <Text>{DataSource1.nm_grup2}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text5>
+          </Components>
+          <Condition>{DataSource1.grup2}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>72c1a8de170749039cb64c67d037a9d3</Guid>
+          <Name>GroupHeaderBand2</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand2>
+        <GroupHeaderBand3 Ref="59" type="GroupHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.66,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text6 Ref="60" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.1,0.04,2.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>cd654a59089b496bb3eb03a9a993d113</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="50" />
+              <Parent isRef="59" />
+              <Text>{DataSource1.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text6>
+          </Components>
+          <Condition>{DataSource1.grup3}</Condition>
+          <Conditions isList="true" count="0" />
+          <Guid>39c61735b5db4390a1352cdb947cfabe</Guid>
+          <Name>GroupHeaderBand3</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+          <SortDirection>None</SortDirection>
+        </GroupHeaderBand3>
+        <DataBand1 Ref="61" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,3.26,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text9 Ref="62" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0.4,0.04,1.9,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>ee83c62724ae460ebe5207af5d99a839</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="50" />
+              <Parent isRef="61" />
+              <Text>{DataSource1.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>DataColumn</Type>
+            </Text9>
+            <Text10 Ref="63" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.3,0.04,1.3,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Guid>89ed192607ee436fb4bbcb8ca96cd935</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="50" />
+              <Parent isRef="61" />
+              <Text>{DataSource1.saldo}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="64" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>DataColumn</Type>
+            </Text10>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>DataSource1</DataSourceName>
+          <Filters isList="true" count="0" />
+          <Guid>00dc49a30e3f48b396b8d2ae997812c3</Guid>
+          <Name>DataBand1</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+        <GroupFooterBand1 Ref="65" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,3.86,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text11 Ref="66" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>d8f7df6604294209acc0bdb56eb3f0e7</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="50" />
+              <Parent isRef="65" />
+              <Text>{DataSource1.nm_grup3}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text11>
+            <Text12 Ref="67" type="Text" isKey="true">
+              <Border>Top;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>a80c7f3e8564434688a5c429e40a30f0</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="50" />
+              <Parent isRef="65" />
+              <Text>{Sum(GroupHeaderBand3,DataSource1.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="68" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text12>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>3f02dda99b154ae1ac467de6fc144fc1</Guid>
+          <Name>GroupFooterBand1</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+        </GroupFooterBand1>
+        <GroupFooterBand2 Ref="69" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.46,3.68,0.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text13 Ref="70" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>01beeca3a48b4b918932463500280c7c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="50" />
+              <Parent isRef="69" />
+              <Text>{DataSource1.nm_grup2}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Text13>
+            <Text14 Ref="71" type="Text" isKey="true">
+              <Border>Top;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>1e7f5a5f2064472eaacac9a93227348e</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="50" />
+              <Parent isRef="69" />
+              <Text>{Sum(GroupHeaderBand2,DataSource1.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="72" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text14>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Enabled>False</Enabled>
+          <Guid>ed27c2ae95484b4b8a21be5dab424cda</Guid>
+          <Name>GroupFooterBand2</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+        </GroupFooterBand2>
+        <GroupFooterBand5 Ref="73" type="GroupFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.06,3.68,0.3</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text19 Ref="74" type="Text" isKey="true">
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>0.3,0.04,2,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>33fa2657fe1a4574b99fe35de20e146c</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="50" />
+              <Parent isRef="73" />
+              <Text>TOTAL AKTIVA</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text19>
+            <Text20 Ref="75" type="Text" isKey="true">
+              <Border>Top, Bottom;Black;1.5;Solid;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>2.5,0.04,1.1,0.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Arial,8,Bold</Font>
+              <Guid>a635e3ef91e94b1ca5388215d04965a0</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="50" />
+              <Parent isRef="73" />
+              <Text>{Sum(GroupHeaderBand1,DataSource1.saldo)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="76" type="NumberFormat" isKey="true">
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <Type>Expression</Type>
+            </Text20>
+            <HorizontalLinePrimitive5 Ref="77" type="HorizontalLinePrimitive" isKey="true">
+              <ClientRectangle>2.5,0.04,1.1,0.01</ClientRectangle>
+              <Color>Black</Color>
+              <EndCap Ref="78" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </EndCap>
+              <Guid>56ab6866704f4e109bd261a4ebeffb4a</Guid>
+              <Name>HorizontalLinePrimitive5</Name>
+              <Page isRef="50" />
+              <Parent isRef="73" />
+              <StartCap Ref="79" type="Cap" isKey="true">
+                <Color>Black</Color>
+              </StartCap>
+            </HorizontalLinePrimitive5>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>6a3202589c1c4bf39491e339a3d98e17</Guid>
+          <Name>GroupFooterBand5</Name>
+          <Page isRef="50" />
+          <Parent isRef="50" />
+        </GroupFooterBand5>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>e26e844d6ded4b40b0fcb50305c6804c</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>RptKeu1_aktiva.rpt</Name>
+      <PageHeight>11</PageHeight>
+      <PageWidth>4.46</PageWidth>
+      <PaperSize>Letter</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="80" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </RptKeu1_aktiva_rpt>
+  </Pages>
+  <PrinterSettings Ref="81" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>7/18/2020 11:32:50 PM</ReportChanged>
+  <ReportCreated>7/18/2020 10:21:34 PM</ReportCreated>
+  <ReportFile>E:\Projects\88\IFA.Reports\Reports\repAktivaPasivaRekap.mrt</ReportFile>
+  <ReportGuid>122a7b30ebe3442a819f0b902477decd</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+        #endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>
