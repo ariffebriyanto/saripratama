@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "Purchasing Order";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetPOPartial", "PO")';
+    var urlGetDetailData = '@Url.Action("GetPODetail", "PO")';
+    var urlForm = '@Url.Action("EditPO", "PO")';
+    var urlSave = '@Url.Action("SavePO", "PO")';
+    var urlCreate = '@Url.Action("Create", "PO")';
+    var urlPrint = '@Url.Action("GetPrintPO", "PO")';
+    var urlMemo = '@Url.Action("GetPrintMemo", "PO")';
+    var urlAkunting = '@Url.Action("GetPrintAkunting", "PO")';
+    var urlGetBarang = '@Url.Action("GetBarang", "QC")';
+    var urlPembatalanPO = '@Url.Action("PembatalanPO", "PO")';
+
+</script>
+<script type="text/javascript" src="~/Script/PO/Index.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Purchasing Order</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <div class="col-md-8">
+                <div class="col-md-12">
+                    <div class="">
+                        <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalfrom">
+                                <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalto">
+                                <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                <label class="col-md-3 col-form-label">Barang:</label>
+                                <div class="col-md-9">
+                                    <input id="barang" class="form-control" placeholder="Filter Barang " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button id="addPO" class="btn btn-info pull-right" onclick="searchPO();"><i class="glyphicon glyphicon-search"></i>&nbsp; Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah PO</button>
+                <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+            </div>
+        </div>
+
+        <div class="col-md-12" style="display:inline-block;">
+            <div id="GridPO" class="font10"></div>
+            <script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            Details
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="detail"></div>
+                    </div>
+
+                </div>
+
+            </script>
+        </div>
+
+    </div>
+    </div>
+    <div id="editForm"></div>
+    <div id="dialog"></div>
+
+
+    <style>
+
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #grid table {
+            min-width: 1190px;
+        }
+    </style>

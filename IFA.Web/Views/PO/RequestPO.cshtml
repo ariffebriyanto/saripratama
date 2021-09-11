@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "RequestPO";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetPORequest", "PO")';
+    var urlForm = '@Url.Action("EditRequest", "PO")';
+    var urlSave = '@Url.Action("SaveRequestPO", "PO")';
+    var urlSatuan = '@Url.Action("GetSatuanCbo", "MSatuan")';
+    var urlGetBarang = '@Url.Action("GetBarang", "PO")';
+  
+</script>
+<script type="text/javascript" src="~/Script/PO/Request.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Request Purchasing Order</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-4 col-form-label">PO Number:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" value="" id="PONo" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button id="addPORequest" class="btn btn-primary pull-right" onclick="showForm();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Request PO</button>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Status:</label>
+                    <div class="col-md-8">
+                        <select name="status" id="status" class="selectpicker width170" data-live-search="true" onchange="oncboFilterChanged();">
+                            <option value="">ALL</option>
+                            <option value="ENTRY">ENTRY</option>
+                            <option value="PURCHASE">PURCHASE</option>
+                            <option value="PENDING DELIVER">PENDING DELIVER</option>
+                            <option value="CLOSE">CLOSE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12" style="display:inline-block; ">
+        <div id="GridPO"></div>
+    </div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>

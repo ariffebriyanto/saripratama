@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewData["Title"] = "Daftar Persiapan Barang";
+}
+
+    <script>
+    urlList = '@Url.Action("Index", "Produksi")';
+    var urlGetData = '@Url.Action("Getrcnkrm", "Produksi")';
+    var KenekList = @(Html.Raw(ViewBag.Kenek));
+    var KendaraanList = @(Html.Raw(ViewBag.Kendaraan));
+    var urlGetDatarcnKirim = '@Url.Action("GetMonrcnkrm", "Produksi")';
+    var urlGetDatarcnKirimDetail = '@Url.Action("GetrcnkirimDetail", "Produksi")';
+
+    var urlSave = '@Url.Action("Saverencanakrm", "Produksi")';
+     var urlEdit = '@Url.Action("Updaterencanakrm", "Produksi")';
+    var urlCreate = '@Url.Action("Create", "Produksi")';
+    var Mode = '@ViewBag.Mode';
+    var idrcnkirim = '@ViewBag.id';
+
+    </script>
+<script type="text/javascript" src="~/Script/Produksi/Create.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Daftar Persiapan Barang</span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+    <div class="row" id="form">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                    <div class="row">
+                        <label class="col-md-2 col-form-label">Tanggal<span class="red">*</span></label>
+                        <div class="col-md-10">
+                            <div class="col-md-5">
+                                <div class='input-group date' id="divtanggalnow">
+                                    <input id='Tgl_rcnkirim' type='text' class="form-control datepicker" value="" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">NO SO<span></span></label>
+                    <div class="col-md-3">
+
+
+                        <input class="form-control form-control" value="" id="no_sp" />
+                        <input type="text" id="p_np" name="p_np" hidden="hidden" />
+
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+
+                </div>
+                @if (ViewBag.Mode == "NEW")
+                {
+                    <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Search Tgl Booking Order<span class="red">*</span></label>
+                            <div class="col-md-10">
+                                <div class="col-md-4">
+                                    <div class='input-group date' id="divtanggalfrom">
+                                        <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                                <div class="col-md-4">
+                                    <div class='input-group date' id="divtanggalto">
+                                        <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="set" class="btn btn-default " onclick="onFilterChanged()"><i class="glyphicon glyphicon-search"></i>&nbsp;</button>
+                                    @*<button id="set" class="k-button" onclick="onFilterChanged()">Search</button>*@
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+                </div>
+            <div class="col-md-6">
+                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                    <div class="row">
+                        <label class="col-md-2 col-form-label">Set Petugas</label>
+                        <div class="col-md-10">
+                            <input class="form-control" value="" id="set_petugas" />
+                        </div>
+                        <div class="col-md-5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                    <div class="row">
+                        <label class="col-md-2 col-form-label">Set Kendaraan</label>
+                        <div class="col-md-10">
+                            <input class="form-control" value="" id="set_kendaraan" />
+                        </div>
+                        <div class="col-md-5">
+                        </div>
+                    </div>
+                </div>
+                @if (ViewBag.Mode == "VIEW" || ViewBag.Mode=="EDIT")
+                {
+                    <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">No Transaksi<span class="red">*</span></label>
+                            <div class="col-md-10">
+
+                                <input class="form-control inputGreen" value="AUTO GENERATED" id="no_trans" readonly="readonly" />
+                             
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+
+
+        @if (ViewBag.Mode == "NEW")
+        {
+            <button id="saveApprovalPO" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+        }
+        @if (ViewBag.Mode == "VIEW")
+        {
+            <button id="saveApprovalPO" class="btn btn-primary pull-right" onclick="showlist();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Kembali</button>
+        }
+        @if (ViewBag.Mode == "EDIT")
+        {
+            <button id="saveApprovalPO" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Update Rencana Kirim</button>
+
+        }
+
+
+
+
+
+    </div>
+
+    <div class="col-md-12" style="display:inline-block;">
+        <div class="k-header k-grid-toolbar font10">
+
+
+            <div id="GridPO"></div>
+            <div id="grid"></div>
+        </div>
+
+
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+    <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+
+    </div>
+        </div>
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

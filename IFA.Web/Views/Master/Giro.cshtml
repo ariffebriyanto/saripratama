@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Penerimaan Giro/Cek";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetAll", "Master")';
+    var urlForm = '@Url.Action("EditGiro", "Master")';
+    var urlSave = '@Url.Action("SavelistGiro", "Master")';
+    var urlDelete = '@Url.Action("DeleteGiro", "Master")';
+    var urlUpdate = '@Url.Action("UpdateGiro", "Master")';
+    var urlSaveUpload = '@Url.Action("saveUpload", "MBarang")';
+    var BarangCbo = @(Html.Raw(ViewBag.BarangList));
+    var PersediaanCbo = @(Html.Raw(ViewBag.PersediaanList));
+    var Penjualan2Cbo = @(Html.Raw(ViewBag.Penjualan2List));
+    var SatuanCbo = @(Html.Raw(ViewBag.Satuan));
+
+    var BankTujuanCbo = @(Html.Raw(ViewBag.banktujuan));
+    var JenisGiroCbo = @(Html.Raw(ViewBag.JenisGiro));
+    var DivisiCbo = @(Html.Raw(ViewBag.Divisi));
+    var KartuCbo = @(Html.Raw(ViewBag.KartuGiro));
+    var BankAsalCbo = @(Html.Raw(ViewBag.BankAsal));
+</script>
+
+<script type="text/javascript" src="~/Script/Master/MGiro.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Penerimaan Giro/Cek</span>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    @*<div>
+            <button id="addBrg" class="btn btn-primary pull-right" onclick="showForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Barang</button>
+        </div>*@
+
+    <div id="GridBrg" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+

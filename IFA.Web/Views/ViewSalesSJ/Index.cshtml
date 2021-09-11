@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "SuratJalan_DN";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var urlGetData = '@Url.Action("GetDPB", "ViewSalesSJ")';
+      var urlSave = '@Url.Action("SaveSJ", "ViewSalesSJ")';
+</script>
+<script type="text/javascript" src="~/Script/SJ/SJ.js" asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Surat Jalan (DN)</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <button id="saveSJ" class="btn btn-primary pull-right" onclick="onsaveSJ();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+    </div>
+    <div class="col-md-12" style="display:inline-block;">
+        <div id="GridPO"></div>
+    </div>
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+

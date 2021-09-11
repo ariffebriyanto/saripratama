@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Rencana Pengiriman";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetMonrcnkrmPartial", "Produksi")';
+    var urlGetDetailData = '@Url.Action("GetDetrcnkrm", "Produksi")';
+    var urlCreate = '@Url.Action("Create", "Produksi")';
+    var urlPrint = '@Url.Action("PrintrcnKirim", "Produksi")';
+    var urlDelete = '@Url.Action("Deletercnkirim", "Produksi")';
+    var urlIndex = '@Url.Action("Index", "Produksi")';
+     var urlGetCustomer = '@Url.Action("GetCustomer", "DO")';
+
+</script>
+<script type="text/javascript" src="~/Script/Produksi/Index.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Rencana Pengiriman</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+                    <label class="col-md-4 col-form-label">SO Number:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" value="" id="SONo" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+
+
+                <label class="col-md-2 col-form-label">Customer</label>
+                <div class="col-md-5">
+                    <select name="Kd_Customer" id="Kd_Customer" class="selectpicker w-100 inputGreen" data-live-search="true"></select>
+
+
+
+                </div>
+                <div class="col-md-3">
+                    <button id="addCustomer" class="btn btn-info pull-right" onclick="getByCust();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="searchPO();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 hidden">
+
+                <label class="col-md-2 col-form-label">Barang:</label>
+                <div class="col-md-8">
+                    <input class="form-control w-100" value="" id="barang" />
+                </div>
+                <div class="col-md-2">
+                    <button id="addCustomer" type="button" class="btn btn-primary" onclick="getByStok(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button id="addPO" class="btn btn-primary pull-right" onclick="addnewRcn();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Rencana Pengiriman</button>
+            <button id="btnDelete" class="btn btn-info pull-right" onclick="DeletePage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-12" style="display:inline-block;">
+        <div id="GridTerima" class="font10"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+<style>
+
+    /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+    #grid table {
+        min-width: 1190px;
+    }
+</style>

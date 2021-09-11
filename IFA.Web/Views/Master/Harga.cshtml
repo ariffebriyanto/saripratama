@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Master Harga";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var urlGetData = '@Url.Action("GetSIFHarga", "Master")';
+    var urlSaveUpload = '@Url.Action("UpdateHargaExcel", "Master")';
+    var urlSave = '@Url.Action("SaveUpdate", "Master")';
+</script>
+<style>
+    .k-clear-selected, .k-upload-selected {
+        display: none !important;
+    }
+</style>
+<script type="text/javascript" src="~/Script/Master/Harga.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Master Harga</span>
+        @*<button id="addKota" class="btn btn-primary pull-right" onclick="showForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Kota</button>*@
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+                    <div class="col-md-8">
+                        <input name="files" id="files" type="file" />
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-info pull-right" style="background-color:aqua;border-color:aqua;color:black" value="Upload Selected Files" onclick="uploadSelected()"><i class="glyphicon glyphicon-upload"></i>&nbsp; Upload</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <button id="saveApprovalPO" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+    </div>
+
+    <div id="GridKota" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+

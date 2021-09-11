@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewData["Title"] = "Laporan Kartu Stok";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var urlBarang = '@Url.Action("GetBarang", "QC")';
+    var urlTahun = '@Url.Action("GetTahun", "QC")';
+    var urlBulan = '@Url.Action("GetBulan", "QC")';
+    var urlGetDataStokHeader = '@Url.Action("GetDataStokHeader", "QC")';
+    var urlGetPrintKartuStok = '@Url.Action("GetPrintKartuStok", "QC")';
+
+</script>
+<script src="~/Script/QC/LaporanKartuStok.js"  asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Laporan Kartu Stok</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 40px;">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Barang:</label>
+                    <div class="col-md-9 widthcboCustom">
+                        @*<select name="Barang" id="Barang" class="selectpicker width99 inputGreen"  data-live-search="true"></select>*@
+                        <input class="form-control" value="" id="Barang" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Period:</label>
+                    <div class="col-md-3 widthcboCustom50">
+                        <select name="Bulan" id="Bulan" class="selectpicker width99 " data-live-search="true"></select>
+                    </div>
+                    <div class="col-md-2 widthcboCustom50">
+                        <select name="Tahun" id="Tahun" class="selectpicker width99 " data-live-search="true"></select>
+                    </div>
+                    <div class="col-md-2 checkbox checkbox-primary ">
+                        <input id="checkbox2" class="styled " type="checkbox">
+                        <label for="checkbox2" class="">
+                            Period Tahun
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="print" class="btn btn-success pull-right" onclick="printData();"><i class="glyphicon glyphicon-print"></i>&nbsp; Print</button>
+                        <button id="search" class="btn btn-info pull-right" onclick="getData();"  style="margin-right: 5px;"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12" style="border: black solid 3px; margin-bottom:15px; display:none;" id="divHeader">
+        <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+            <div class="col-md-12 text-right" style="margin-left:-53px; margin-top:15px;">
+                <label id="lblPeriod"></label>
+
+            </div>
+            <div class="col-md-12 text-center">
+                <label style="font-size: 20px;font-weight: bold !important;">KARTU STOK</label>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6 text-left">
+                    <div class="col-md-2 " style="margin-left: 15px;">
+                        <label style="font-size: 14px;">Nama Barang:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <label style="font-size: 14px;font-weight: bold !important;" id="lblNamaBarang"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-6 text-left">
+                    <div class="col-md-2 " style="margin-left: 15px;">
+                        <label style="font-size: 14px;">Kode Barang:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <label style="font-size: 14px;font-weight: bold !important;" id="lblKodeBarang"></label>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="col-md-10 text-right" style="margin-left: 15px;">
+                        <label style="font-size: 14px;">Saldo Awal:</label>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <label style="font-size: 14px;font-weight: bold !important;" id="lblSaldoAwal"></label>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12" style="display:inline-block;">
+
+            <div id="kartustokGrid"></div>
+        </div>
+
+
+    </div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

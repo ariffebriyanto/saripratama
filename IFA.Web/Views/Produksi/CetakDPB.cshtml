@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "Cetak DPB";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetCetakDPB", "Produksi")';
+    var urlSaveCetakDPB= '@Url.Action("SaveCetakDPB", "Produksi")';
+</script>
+
+<script src="~/Script/Produksi/CetakDPB.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Cetak DPB</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <div class="col-md-8">
+                <div class="col-md-12">
+                    <div class="">
+                        <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalfrom">
+                                <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalto">
+                                <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-left:20px;">
+                            <select name="status" id="status" class="selectpicker width170" data-live-search="true">
+                                <option value="ALL">ALL</option>
+                                <option value="Belum Cetak">BELUM CETAK</option>
+                                <option value="Sudah Cetak">SUDAH CETAK</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btnFilter" onclick="onClickFilter();" class="btn btn-info pull-right">&nbsp; &nbsp; Filter &nbsp; &nbsp;</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button id="addPO" class="btn btn-primary pull-right" onclick="onClickPrint();"><i class="glyphicon glyphicon-print"></i>&nbsp; Print Data</button>
+            </div>
+        </div>
+
+        <div class="col-md-12" style="display:inline-block;">
+            <div id="gvList" ></div>
+            
+        </div>
+
+    </div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+<style>
+
+    /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+    #grid table {
+        min-width: 1190px;
+    }
+</style>

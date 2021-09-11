@@ -1,0 +1,126 @@
+﻿@*@{
+        ViewData["Title"] = "MonitoringQC";
+    }
+
+    <h1>MonitoringQC</h1>*@
+
+
+@{
+    ViewData["Title"] = "Monitoring QC";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetQC", "QC")';
+    var urlGetDetailData = '@Url.Action("GetDetailQC", "QC")';
+    var urlForm = '@Url.Action("EditQC", "QC")';
+    var urlSave = '@Url.Action("SaveQC", "QC")';
+    var urlCreate = '@Url.Action("Index", "QC")';
+    var urlPrint = '@Url.Action("GetPrintQC", "QC")';
+
+     var urlGetQC = '@Url.Action("GetdataQC", "QC")';
+    var urlGetGudang = '@Url.Action("GetGudang", "QC")';
+   var urlGetBarang = '@Url.Action("GetBarang", "QC")';
+    
+</script>
+<script type="text/javascript" src="~/Script/QC/MonitoringQC.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Inspeksi QC Penerimaan</span>
+        </div>
+    </div>
+  
+    
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="searchData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-3">
+            <div class="">
+               
+                <label class="col-md-3 col-form-label">Barang:</label>
+                <div class="col-md-9">
+                   
+                    <input class="form-control" value="" id="barang" />
+
+                </div>
+            </div>
+        </div>*@
+        <div class="col-md-2">
+            @*<button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah PO</button>*@
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Filter:</label>
+                    <div class="col-md-9">
+                        <input id="filter" class="form-control" placeholder="Filter " />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="margin-left:15px;">
+                <button id="btnFilter" class="btn btn-info" onclick="oncboFilterChanged();" style="padding-left:10px;"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+            </div>
+        </div>
+
+    </div>
+
+
+        <div class="col-md-12" style="display:inline-block;">
+            <div id="GridPO" class="font10"></div>
+            @*<script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            Details
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="detail"></div>
+                    </div>
+
+                </div>
+
+            </script>*@
+        </div>
+
+
+    </div>
+    <div id="editForm"></div>
+    <div id="dialog"></div>
+
+
+
+

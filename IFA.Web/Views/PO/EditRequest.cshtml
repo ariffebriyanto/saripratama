@@ -1,0 +1,162 @@
+﻿@model IFA.Domain.Models.PURC_DPM_D
+
+<script>
+       var DetailList = @(Html.Raw(ViewBag.DetailList));
+    var Mode = '@ViewBag.Mode';
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    Request Purchasing Order
+                </h6>
+
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm("Save", "PORequest", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-10 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+
+                        <div class="col-md-12 form-c-inline">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Request Number<span class="red">*</span></label>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.No_DPM, new { @class = "form-control inputPink", id = "No_DPM", disabled = "disabled" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-c-inline">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Status</label>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.rec_stat, new { @class = "form-control inputPink", id = "rec_stat", disabled = "disabled" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-c-inline" style="display:none;">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Barang<span class="red">*</span></label>
+                                <div class="col-md-10">
+
+                                    @*@Html.DropDownListFor(m => m.Kd_Stok, null, new { @class = "selectpicker width99 inputGreen", id = "Kd_Stok", onchange = @"onCboBarangOnChange();" })*@
+                                    @*<select name="Kd_Stok" id="Kd_Stok" class="selectpicker width99" data-live-search="true" onchange = "onCboBarangOnChange();"></select>*@
+                                    <input class="form-control" value="" id="Kd_Stok" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-c-inline" style="display:none;">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Satuan<span class="red">*</span></label>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.Satuan, new SelectList(Model.ListSatuan, "Kode_Satuan", "Nama_Satuan"), new { @class = "selectpicker", id = "Satuan" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-c-inline" style="display:none;">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Qty</label>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Qty, new { @class = "form-control", id = "Qty" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-9 col-lg-12">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Tanggal Diperlukan<span class="red">*</span></label>
+                                <div class="col-md-3">
+                                    <div class='input-group date' id="divTgl_Diperlukan">
+                                        @Html.TextBoxFor(model => model.Tgl_Diperlukan, new { @class = "form-control datepicker", id = "Tgl_Diperlukan" })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-c-inline">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Notes</label>
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Keterangan, new { @class = "form-control", id = "Keterangan", @style = "resize:none;", @rows = 4 })
+                                </div>
+                            </div>
+                        </div>
+                        @if (ViewBag.Mode == "NEW" )
+                        {
+                            <div class="col-md-12 form-c-inline">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button id="addKota" class="btn btn-primary pull-right" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item(F2)</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="col-md-12 form-c-inline">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="GridPODetail" class="font10"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+                <div class="col-xs-12 col-sm-3 col-lg-2 page-right-content">
+                    <div class="row row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class="row right-buttons">
+                                <div class="col-xs-12">
+                                    <div class="row ">
+
+                                        <div class="col-xs-6 col-sm-12 row-right-button">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                        </div>
+                                        @if (ViewBag.Mode == "NEW" || ViewBag.Mode == "REVISE")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button">
+                                                <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

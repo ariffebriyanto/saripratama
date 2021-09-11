@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring PO Terakhir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetLastPOPartial", "PO")';
+    var urlExportExcel = '@Url.Action("ExportExcelLastPO", "PO")';
+
+</script>
+<script type="text/javascript" src="~/Script/PO/LastPO.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring PO Terakhir</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <div class="col-md-8">
+                <div class="col-md-12">
+                    <div class="">
+                        <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalfrom">
+                                <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                        <div class="col-md-2">
+                            <div class='input-group date' id="divtanggalto">
+                                <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button id="addPO" class="btn btn-info pull-right" onclick="searchPO();"><i class="glyphicon glyphicon-search"></i>&nbsp; Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button id="exportExcel" class="btn btn-primary pull-right" onclick="onexportExcel(); return false;"><i class="glyphicon glyphicon-download-alt"></i>&nbsp; Export To Excel</button>
+            </div>
+        </div>
+
+
+        <div class="col-md-12" style="display:inline-block;">
+            <div id="GridPO" class="font10"></div>
+            <script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            Details
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="detail"></div>
+                    </div>
+
+                </div>
+
+            </script>
+        </div>
+
+    </div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+<style>
+
+    /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+    #grid table {
+        min-width: 1190px;
+    }
+</style>
+
+

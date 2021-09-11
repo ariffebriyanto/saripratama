@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Kota";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var urlGetData = '@Url.Action("GetKota", "Master")';
+    var urlForm = '@Url.Action("EditKota", "Master")';
+    var urlSave = '@Url.Action("SaveKota", "Master")';
+    var urlDelete = '@Url.Action("DeleteKota", "Master")';
+    var urlUpdate = '@Url.Action("UpdateKota", "Master")';
+
+</script>
+<script type="text/javascript" src="~/Script/Master/Kota.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title" >
+        <span class="fontTitle">Master Kota</span>
+        <button id="addKota" class="btn btn-primary pull-right" onclick="showForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Kota</button>
+    </div>
+    <div>
+
+    </div>
+    <div id="GridKota"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+

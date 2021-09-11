@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Kas Bank";
+}
+
+    <script>
+    var urlGetData = '@Url.Action("GetMonMutasiKasBank", "Kasir")';
+    var urlGetDetailData = '@Url.Action("GetMonMutasiKasBankD", "Kasir")';
+    var urlCreate = '@Url.Action("KasMasukKeluar", "Kasir")';
+    var urlPrint = '@Url.Action("GetPrintTerima", "Inventory")';
+    var urlPembatalan = '@Url.Action("Pembatalan", "Inventory")';
+    var urlBukuPusat = '@Url.Action("BukuPusat", "Kasir")';
+    var urlRekGl = '@Url.Action("RekGl", "Kasir")';
+
+    </script>
+<script type="text/javascript" src="~/Script/Kasir/KasBank.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Keluar Masuk Kas dan Bank</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+        <label class="col-md-1 col-form-label" style="margin-left: 10px;">Jenis<span></span></label>
+        <div class="col-md-3">
+
+
+            <select name="Jenis" id="Jenis" class="selectpicker width99 inputGreen" data-live-search="true">
+                <option value="ALL">ALL</option>
+                <option value="JKK-KBB-10">Pengeluaran Kas Langsung</option>
+                <option value="JKK-KBB-11">Pengeluaran Bank Langsung</option>
+                <option value="JKM-KBB-04">Penerimaaan Kas Langsung</option>
+                <option value="JKM-KBB-05">Penerimaaan Bank Langsung</option>
+            </select>
+
+        </div>
+        <div class="col-md-2">
+            <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+        <label class="col-md-1 col-form-label" style="margin-left: 10px;">NO Jurnal<span></span></label>
+        <div class="col-md-3">
+
+
+            <input class="form-control form-control" value="" id="no_sp" />
+            <input type="text" id="p_np" name="p_np" hidden="hidden" />
+
+        </div>
+        <div class="col-md-2">
+            <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+        </div>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-12">
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Masuk / Keluar</button>
+                <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+
+
+    </div>
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridTerima"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

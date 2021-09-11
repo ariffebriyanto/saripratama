@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewData["Title"] = "CetakSJ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <script>
+    var urlGetData = '@Url.Action("GetSJ", "ViewSalesSJ")';
+    var urlGetDetailData = '@Url.Action("GetDetailSJ", "ViewSalesSJ")';
+    var urlCreate = '@Url.Action("Create", "ViewSalesSJ")';
+    var urlPrint = '@Url.Action("GetPrint", "ViewSalesSJ")';
+    var urlPrintNotaNew = '@Url.Action("GetDONotaNew", "DO")';
+    var urlPrintNotaSM = '@Url.Action("GetNotaSM", "DO")';
+      var urlPembatalan = '@Url.Action("Pembatalan", "ViewSalesSJ")';
+
+    </script>
+<script src="~/content/printmanager/zip.js-master/zip.js"></script>
+<script src="~/content/printmanager/zip.js-master/zip-ext.js"></script>
+<script src="~/content/printmanager/zip.js-master/deflate.js"></script>
+<script src="~/content/printmanager/JSPrintManager.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script type="text/javascript" src="~/Script/SJ/CetakSJ.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">CETAK SJ DAN NOTA SEMENTARA</span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+
+            @*<div class="col-md-3">
+            <div class="">
+                <label class="col-md-4 col-form-label">SJ Number:</label>
+                <div class="col-md-8">
+                    <input class="form-control" value="" id="PONo" />
+
+                </div>
+            </div>
+        </div>*@
+            @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+
+        <div class="row">*@
+            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                <label class="col-md-1 col-form-label" style="margin-left: 10px;">NO SO<span></span></label>
+                <div class="col-md-3">
+
+
+                    <input class="form-control form-control" value="" id="no_sp" />
+                    <input type="text" id="p_np" name="p_np" hidden="hidden" />
+
+                </div>
+                <div class="col-md-2">
+                    <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                </div>
+
+            </div>
+            <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+            <div class="col-md-3">
+                <div class='input-group date' id="divtanggalfrom">
+                    <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+            <div class="col-md-3">
+                <div class='input-group date' id="divtanggalto">
+                    <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+            </div>
+            @* </div>
+        </div>*@
+
+            @*<div class="col-md-4">
+              
+                <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+            </div>*@
+        </div>
+
+        <div class="col-md-6">
+            @*<div class="col-md-8">*@
+            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                <div class="row">
+                    <label class="col-md-2 col-form-label">Status:</label>
+                    <div class="col-md-8">
+                        <select name="status" id="status" class="selectpicker width170" data-live-search="true" onchange="oncboFilterChanged();">
+                            <option value="">ALL</option>
+                            <option value="SJ">SJ</option>
+                            <option value="CLOSE">CLOSE</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                <div class="row">
+                    < <label class="col-md-2 col-form-label">Status:</label>
+                    <div class="col-md-8">
+                        <select name="installedPrinterName" id="installedPrinterName" class="form-control"></select>
+                        <input class="styled " type="checkbox" id="useDefaultPrinter">
+                        <label for="useDefaultPrinter" class="">
+                            Default Printer
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            @*</div>*@
+
+        </div>
+    </div>
+        @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                <div class="row">
+                    <label class="col-md-2 col-form-label">Printer</label>
+                    <div class="col-md-10">
+                        <select name="installedPrinterName" id="installedPrinterName" class="form-control"></select>
+                        <input class="styled " type="checkbox" id="useDefaultPrinter">
+                        <label for="useDefaultPrinter" class="">
+                            Default Printer
+                        </label>
+                    </div>
+                </div>
+            </div>*@
+
+
+        <div class="" style="display:inline-block;">
+            <div id="GridTerima"></div>
+            <script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            Details
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="detail"></div>
+                    </div>
+
+                </div>
+
+            </script>
+        </div>
+
+
+    </div>
+    <script>
+
+        //WebSocket settings
+        JSPM.JSPrintManager.auto_reconnect = true;
+        JSPM.JSPrintManager.start();
+        JSPM.JSPrintManager.WS.onStatusChanged = function () {
+            if (jspmWSStatus()) {
+                //get client installed printers
+                JSPM.JSPrintManager.getPrinters().then(function (myPrinters) {
+                    var options = '';
+                    for (var i = 0; i < myPrinters.length; i++) {
+                        options += '<option>' + myPrinters[i] + '</option>';
+                    }
+                    $('#installedPrinterName').html(options);
+                });
+            }
+        };
+
+        //Check JSPM WebSocket status
+        function jspmWSStatus() {
+            if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+                return true;
+            else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+                //alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+                return false;
+            }
+            else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.BlackListed) {
+                //  alert('JSPM has blacklisted this website!');
+                return false;
+            }
+        }
+
+        //Do printing...
+
+    </script>
+

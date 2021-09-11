@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Create Retur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <script>
+    var urlGetReturInv = '@Url.Action("GetReturInv", "Retur")';
+    var urlGetDODetails = '@Url.Action("GetDODetails", "Retur")';
+    var urlCreate = '@Url.Action("Create", "Retur")';
+    var Mode = '@ViewBag.Mode';
+    var idDO = '@ViewBag.Id';
+    var urlSave = '@Url.Action("Save", "Retur")';
+    var urlSave2 = '@Url.Action("Save2", "Retur")';
+    </script>
+
+<script src="~/Script/Retur/Create.js" asp-append-version="true"></script>
+
+<div class="panel panel-default" id="createForm">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    FORM Retur Penjualan
+                </h6>
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Save", "Retur", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row">
+                        <div class="col-md-6">
+
+
+
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">No DO<span class="red">*</span></label>
+                                    <div class="col-md-10">
+                                        <select name="noDO" id="noDO" class="selectpicker width99 inputGreen" data-live-search="true" onchange="onNoDOChanged();">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Nama Customer</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="" id="NamaCustomer" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Alamat:</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="" id="alamat" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Retur Number<span class="red">*</span></label>
+                                    <div class="col-md-10">
+                                        <input class="form-control inputPink" value="AUTO GENERATED" id="ReturNumber" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">No. Inv</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="" id="NoInv" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Jenis DO</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="" id="JenisDO" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GridDetails"></div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+                                        @*<div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                    <button id="back" class="btn btn-success right-button" onclick="showCreate(); return false;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW(F7)</span></button>
+                                </div>*@
+                                        @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "NEW")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                                <button id="save" type="button" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan(F4)</span></button>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

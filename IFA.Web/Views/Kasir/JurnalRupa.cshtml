@@ -1,0 +1,284 @@
+﻿
+@{
+    ViewData["Title"] = "Jurnal Rupa Rupa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+        var urlGetCustomer = '@Url.Action("GetCustomer", "DO")';
+    var urlGetData = '@Url.Action("GetKeluarMasuk", "Kasir")';
+    @*var urlBarang = '@Url.Action("GetBarangSaldo", "Inventory")';*@
+    var urlBukuPusat = '@Url.Action("BukuPusat", "Kasir")';
+    var urlSave = '@Url.Action("SaveJurnalRupa", "Kasir")';
+    var urlOpname = '@Url.Action("JurnalRupa", "Kasir")';
+    var urlRekGl = '@Url.Action("RekGl", "Kasir")';
+    var urlRekeningBank = '@Url.Action("Rekeningbank", "Kasir")';
+    var urlRekeningKas = '@Url.Action("Rekeningkas", "Kasir")';
+    var Mode = '@ViewBag.Mode';
+    var idOpname = '@ViewBag.Id';
+</script>
+<script src="~/content/printmanager/zip.js-master/zip.js"></script>
+<script src="~/content/printmanager/zip.js-master/zip-ext.js"></script>
+<script src="~/content/printmanager/zip.js-master/deflate.js"></script>
+<script src="~/content/printmanager/JSPrintManager.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script src="~/Script/Jurnal/JurnalRupa.js" asp-append-version="true"></script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    Jurnal Rupa Rupa
+                </h6>
+
+            </div>
+        </div>
+
+    </div>
+    @using (Html.BeginForm("SaveMutasiCabang", "Inventory", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Jenis<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="Jenis" id="Jenis" class="selectpicker width99 inputGreen" data-live-search="true" onchange="JenisChanged1();">
+                                                <option value="JKK-KBB-10">Pengeluaran Kas Langsung</option>
+                                                <option value="JKK-KBB-11">Pengeluaran Bank Langsung</option>
+                                                <option value="JKM-KBB-04">Penerimaaan Kas Langsung</option>
+                                                <option value="JKM-KBB-05">Penerimaaan Bank Langsung</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">No Jurnal<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control inputPink" value="AUTO GENERATED" id="NoTransaksi" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label">Penerima/Sopir:<span class="red">*</span></label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" value="" id="penerima" />
+                                            </div>
+
+                                        </div>
+                                    </div>*@
+                                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="display:none">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label">Kartu Pegawai<span class="red">*</span></label>
+                                            <div class="col-md-10">
+                                                <select name="gudang" id="gudang" class="selectpicker width99 inputGreen" data-live-search="true"></select>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Keterangan</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="3" id="Keterangan" name="Keterangan" style="resize:none;max-width:100%"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">No Referensi</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="" id="NoReferensi" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="display:none">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Kepada<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="Kd_Customer" id="Kepada" class="selectpicker width99 inputGreen" data-live-search="true" onchange="onCustomerChanged()"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Alamat</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="3" id="Alamat" name="Alamat" style="resize:none;max-width:100%"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Rekening Kas<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="Rekening" id="Rekening" class="selectpicker width99 inputGreen" data-live-search="true"></select>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label">Saldo kas</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" value="" id="Saldo" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label">Sisa</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" value="" id="NoReferensi" />
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Printer</label>
+                                        <div class="col-md-10">
+                                            <select name="installedPrinterName" id="installedPrinterName" class="form-control"></select>
+                                            <input class="styled " type="checkbox" id="useDefaultPrinter">
+                                            <label for="useDefaultPrinter" class="">
+                                                Default Printer
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <button id="addNew" class="btn btn-primary pull-right" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GridStokOpname" class="font10"></div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+
+                            </div>
+                            @*<div class="col-md-6" style="margin-left:auto" align="right">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">Total Rupiah</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control pull-right inputPink text-right" value="0" id="TotalRupiah" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                            <button id="new" class="btn btn-primary right-button" onclick="newCreate(); return false;" style="display:none;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW</span></button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                        </div>
+
+
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                        </div>
+                                        @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "VIEW")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                <button id="print" class="btn btn-success right-button" onclick="onPrintTokoClicked(); return false;"><i class="glyphicon glyphicon-print paddingRight10" aria-hidden="true"></i><span>Print Toko</span></button>
+                                            </div>
+                                            @*<div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                    <button id="print" class="btn btn-success right-button" onclick="onPrintClicked(); return false;"><i class="glyphicon glyphicon-print paddingRight10" aria-hidden="true"></i><span>Print</span></button>
+                                                </div>*@
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+    //WebSocket settings
+    JSPM.JSPrintManager.auto_reconnect = true;
+    JSPM.JSPrintManager.start();
+    JSPM.JSPrintManager.WS.onStatusChanged = function () {
+        if (jspmWSStatus()) {
+            //get client installed printers
+            JSPM.JSPrintManager.getPrinters().then(function (myPrinters) {
+                var options = '';
+                for (var i = 0; i < myPrinters.length; i++) {
+                    options += '<option>' + myPrinters[i] + '</option>';
+                }
+                $('#installedPrinterName').html(options);
+            });
+        }
+    };
+
+    //Check JSPM WebSocket status
+    function jspmWSStatus() {
+        if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+            return true;
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+            //alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+            return false;
+        }
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.BlackListed) {
+            //  alert('JSPM has blacklisted this website!');
+            return false;
+        }
+    }
+
+    //Do printing...
+
+</script>
+

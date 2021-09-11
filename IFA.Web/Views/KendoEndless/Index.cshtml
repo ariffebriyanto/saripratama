@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+<base href="http://demos.telerik.com/kendo-ui/sortable/integration-grid">
+<style>
+    html {
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+<title></title>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.material.mobile.min.css" />
+
+<script src="https://kendo.cdn.telerik.com/2017.3.913/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.all.min.js"></script>
+
+
+<h1>Index</h1>
+
+<div id="example">
+    <div id="grid"></div>
+
+    <script>
+        $(document).ready(function () {
+
+
+            var grid = $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        //read: "https://jsonplaceholder.typicode.com/comments"
+                        // read: "http://localhost:11207/api/Technologies/TechnologiesList"
+                        read: "http://localhost/SPTWEB/api/api/PURC_PO/GetPOPartial/?DateFrom=1/1/2019&DateTo=12/12/2020"
+                        //http://localhost/SPTWEB/api/api/
+                    },
+                    schema: {
+                        model: {
+                            fields: {
+                                no_po: { type: "string" },
+                                tgl_po: { type: "date" },
+                                nama_Supplier: { type: "string" },
+
+                            }
+                        }
+                    },
+                    pageSize: 50,
+
+                },
+                scrollable: { endless: true }, // Enabling the kendo Endless scrollable
+                pageable: {
+                    numeric: false,
+                    previousNext: false,
+                    messages: {
+                        display: "Showing {2} data items"
+                    }
+                },
+                height: 750,
+                columns: [
+
+                    { field: "no_po", title: "no_po", width: "130px" },
+                    { field: "tgl_po", title: "tgl_po", width: "130px" },
+                    { field: "nama_Supplier", title: "nama_Supplier", width: "130px" },
+
+                ]
+            }).data("kendoGrid");
+
+
+        });
+    </script>
+
+    <style>
+        .k-grid tbody tr {
+            cursor: move;
+        }
+    </style>
+</div>

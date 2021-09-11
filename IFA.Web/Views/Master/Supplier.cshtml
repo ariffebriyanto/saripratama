@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Master Supplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetSupplier", "Master")';
+    var urlSave = '@Url.Action("saveSupplier", "Master")';
+    var urlDelete = '@Url.Action("DeleteSupplier", "Master")';
+    var urlUpdate = '@Url.Action("UpdateSupplier", "Master")';
+   
+  
+
+</script>
+
+<script type="text/javascript" src="~/Script/Master/Supplier.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Master Supplier</span>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+                  
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    <div id="GridBrg" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+

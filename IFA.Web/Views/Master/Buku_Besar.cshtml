@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Buku Besar GL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var urlGetData = '@Url.Action("GetSIFBukuBesar", "Master")';
+    var urlForm = '@Url.Action("EditBukuBesar", "Master")';
+    var urlSave = '@Url.Action("SaveBukuBesar", "Master")';
+    var urlDelete = '@Url.Action("DeleteBukuBesar", "Master")';
+    var urlUpdate = '@Url.Action("UpdateBukuBesar", "Master")';
+
+</script>
+<script type="text/javascript" src="~/Script/Master/MBukuBesar.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title" >
+        <span class="fontTitle">Master Buku Besar</span>
+        @*<button id="addKota" class="btn btn-primary pull-right" onclick="addForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Buku Besar</button>*@
+    </div>
+    <div>
+
+    </div>
+    <div id="GridBrg" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+

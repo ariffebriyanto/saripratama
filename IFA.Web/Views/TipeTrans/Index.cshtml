@@ -1,0 +1,91 @@
+﻿@model List<IFA.Domain.Models.SIF_TIPE_TRANS>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var TipeTransds = @(Html.Raw(ViewBag.TipeTrans));
+    var urlCreate = '@Url.Action("Index", "TipeTrans")';
+    var urlSaveData= '@Url.Action("Save", "TipeTrans")';
+</script>
+
+<script src="~/Script/TipeTrans/Index.js" asp-append-version="true"></script>
+
+
+<div class="panel panel-default" id="createForm">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    FORM TIPE TRANS MASTER
+                </h6>
+
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+
+    </div>
+    @using (Html.BeginForm("Save", "PO", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+                        <div class="col-md-12">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-4 col-form-label">@item.tipe_desc<span class="red">*</span></label>
+                                        <div class="col-md-6">
+                                            <div class="col-md-6">
+                                                <input type="radio" name="@item.tipe_trans" id="@item.tipe_trans|1" value="M"> <label for="@item.tipe_trans|1">MANUAL</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="@item.tipe_trans" id="@item.tipe_trans|2" value="A"> <label for="@item.tipe_trans|2">AUTO</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input value="@item.tipe_trans" type="hidden" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                            <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

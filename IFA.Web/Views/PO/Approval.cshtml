@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Approval Purchasing Order";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetApproval", "PO")';
+    var urlGetDetailData = '@Url.Action("GetDetailApprovalPO", "PO")';
+
+    var urlForm = '@Url.Action("EditPO", "PO")';
+    var urlSave = '@Url.Action("SaveApprovalPO", "PO")';
+    var urlCreate = '@Url.Action("Create", "PO")';
+
+</script>
+<script type="text/javascript" src="~/Script/PO/Approval.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Approval Purchasing Order</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <button id="saveApprovalPO" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+    </div>
+
+    <div class="col-md-12" style="display:inline-block;">
+        <div class="k-header k-grid-toolbar font10">
+
+
+            <div id="GridPO"></div>
+        </div>
+
+
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+    <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

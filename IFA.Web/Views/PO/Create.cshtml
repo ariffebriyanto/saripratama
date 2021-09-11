@@ -1,0 +1,497 @@
+﻿@model IFA.Domain.Models.PURC_PO
+@{
+    ViewData["Title"] = "Create PO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Script/PO/Create.js" asp-append-version="true"></script>
+<script>
+    var urlSave = '@Url.Action("SavePO", "PO")';
+</script>
+@{
+
+}
+
+<script type="text/javascript">
+    var urlGetData = '@Url.Action("GetPO", "PO")';
+    var urlCreate = '@Url.Action("Create", "PO")';
+    var urlGetDetailData = '@Url.Action("GetPODetail", "PO")';
+    var urlList = '@Url.Action("Index", "PO")';
+
+    var SupplierList = @(Html.Raw(ViewBag.Supplier));
+    var SatuanList = @(Html.Raw(ViewBag.Satuan));
+    var BarangList = @(Html.Raw(ViewBag.Barang));
+    var Mode = '@ViewBag.Mode';
+    var idPO = '@ViewBag.Id';
+    var urlPrint = '@Url.Action("GetPrintPO", "PO")';
+    var urlPORequest = '@Url.Action("GetPORequest", "PO")';
+    var urlSaveCustomer = '@Url.Action("SaveCustomer", "PO")';
+    var urlGetAlamatKirim = '@Url.Action("GetAlamatKirim", "PO")';
+
+</script>
+
+<div class="panel panel-default" id="createForm">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    FORM PURCHASING ORDER
+                </h6>
+
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm("Save", "PO", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">PO Number<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control inputPink" value="AUTO GENERATED" id="PONumber" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Tanggal PO<span class="red">*</span></label>
+                                        <div class="col-xs-12 col-sm-9 col-lg-4">
+                                            <div class='input-group date' id="divtanggal">
+                                                <input id='tanggal' type='text' class="form-control datepicker" value="" asp-for="tgl_po" />
+
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <span asp-validation-for="tgl_po" class="text-danger"></span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Tanggal Kirim<span class="red">*</span></label>
+                                        <div class="col-xs-12 col-sm-9 col-lg-4">
+                                            <div class='input-group date' id="divtanggalkirim">
+                                                <input id='tanggalkirim' type='text' class="form-control datepicker" value="" asp-for="tgl_kirim" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <span asp-validation-for="tgl_kirim" class="text-danger"></span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Supplier<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select asp-for="kd_supplier" name="Supplier" id="kd_supplier" class="selectpicker width99 inputGreen" data-live-search="true"></select>
+                                            <button id="addCustomer" type="button" class="btn btn-primary" data-toggle="modal" onclick="opencustomerModal(); return false;" data-target="#customerModal" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i></button>
+                                            <span asp-validation-for="kd_supplier" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Atas Nama:<span class="red">*</span></label>
+                                        <div class="col-md-10">
+
+                                            <select name="jenisPO" id="jenisPO" class="selectpicker width99 inputGreen" data-live-search="true">
+                                                <option value="SARI PRATAMA TOOLS">SARI PRATAMA TOOLS</option>
+                                                <option value="SINAR">SINAR</option>
+                                                <option value="MULTIMAYAKA">MULTIMAYAKA</option>
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Nama KOP</label>
+                                        <div class="col-md-10">
+                                            @if (ViewBag.Mode != "VIEW")
+                                            {
+                                                <input class="form-control" value="SARI PRATAMA TOOLS" id="kop_surat" />
+                                            }
+                                            else
+                                            {
+                                                <input class="form-control" value="" id="kop_surat" />
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Valuta<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="Valuta" id="Valuta" class="selectpicker width99 inputGreen" data-live-search="true">
+                                                <option value="IDR" selected>Rupiah</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Kurs<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control text-right" value="1" id="Kurs" asp-for="kurs_valuta" onkeyup="ItemCalc();" />
+                                            <span asp-validation-for="kurs_valuta" class="text-danger"></span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Reference No</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="" id="RefNo" @(ViewBag.Mode == "VIEW" ? "disabled='disabled'" : "") />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Alamat Kirim<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="alamatkirim" id="alamatkirim" class="selectpicker width99 inputGreen" data-live-search="true" onchange="onalamatChanged();">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label"></label>
+                                        <div class="col-md-10">
+                                            <textarea asp-for="keterangan" class="form-control" rows="3" id="Keterangan" name="Keterangan" style="resize:none;max-width:100%" disabled></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" id="ketreject" style="display:none;">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Keterangan Reject/Revise</label>
+                                        <div class="col-md-10">
+                                            <textarea asp-for="ket_batal" class="form-control inputPink" rows="3" id="ket_batal" name="ket_batal" style="resize:none;max-width:100%" disabled></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Status</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control inputPink" value="NEW" id="Status" disabled />
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if (ViewBag.Mode != "VIEW")
+                                            {
+                                                <button id="addKota" class="btn btn-primary pull-right" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item(F2)</button>
+                                                @*<button id="addDPM" type="button" data-toggle="modal" data-target="#requestModal" onclick="onAddNewDPM(); return false;" class="btn btn-info pull-right " style="margin-right:10px;" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i>&nbsp; Request</button>*@
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GridPO" class="font10"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" id="form">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Lama Bayar<span class="red">*</span></label>
+                                        <div class="col-md-2">
+                                            <input class="form-control inputPink" value="" type="number" min="0" id="Lama" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9 col-lg-4" style="display:none;">
+                                            <div class='input-group date' id="tanggalBayar">
+                                                <input id='tglBayar' type='text' class="form-control" value="" asp-for="tgl_jth_tempo" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <span asp-validation-for="tgl_jth_tempo" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Keterangan</label>
+                                        <div class="col-md-10">
+                                            <div class="col-md-10">
+                                                <textarea class="form-control" rows="3" id="term_bayar" name="term_bayar" style="resize:none;"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline ">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">SubTotal</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control pull-right inputPink text-right" value="0" id="SubTotal" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">Ongkos Kirim<span class="red">*</span></label>
+                                        <div class="col-md-6">
+                                            <input class="form-control pull-right inputGreen text-right" value="0" id="Ongkos" onkeyup="ItemCalc();" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">Flag PPN</label>
+                                        <div class="col-md-2 checkbox checkbox-primary paddingleft42">
+                                            <input id="checkbox2" class="styled " type="checkbox">
+                                            <label for="checkbox2" class="">
+                                                PPN
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <input class="form-control pull-right inputGreen text-right" value="0" id="PPN" disabled onkeyup="ItemCalc();" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">Jumlah Total</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control pull-right inputPink text-right" value="0" id="Total" disabled />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-6 col-form-label" style="text-align:right">Total Rupiah</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control pull-right inputPink text-right" value="0" id="TotalRupiah" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+
+                                        @if (ViewBag.Mode == "NEW" || ViewBag.Mode == "VIEW" || ViewBag.Mode == "EDIT")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                                <button id="back" class="btn btn-danger right-button" onclick="showCreate(); return false;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW</span></button>
+                                            </div>
+                                        }
+                                        @if (ViewBag.Mode == "NEW" || ViewBag.Mode == "EDIT")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                            </div>
+                                        }
+
+                                        @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "VIEW")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                <button id="print" class="btn btn-success right-button" onclick="onPrintClicked(); return false;"><i class="glyphicon glyphicon-print paddingRight10" aria-hidden="true"></i><span>Print</span></button>
+                                            </div>
+                                        }
+                                        @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "VIEW")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade in" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModal" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content" style="max-width:90%">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="answerModalLabel">Request</h4>
+
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-c-inline">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="DPMGrid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="tambahDPM(); return false;" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade in" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModal" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content" style="max-width:40%">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="answerModalLabel">Tambah Customer</h4>
+
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-c-inline">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                            <div class="row">
+                                                <label class="col-md-2 col-form-label">Nama</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" value="" id="NamaCust" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                            <div class="row">
+                                                <label class="col-md-2 col-form-label">Alamat</label>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" rows="3" id="AlamatCust" name="AlamatCust" style="resize:none;"></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                            <div class="row">
+                                                <label class="col-md-2 col-form-label">Kota</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" value="" id="KotaCust" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                            <div class="row">
+                                                <label class="col-md-2 col-form-label">Telp</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" value="" id="TelpCust" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" onclick="tambahCustomer(); return false;" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade in" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="invoiceModal" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content" style="max-width:90%">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="answerModalLabel">Last Invoice</h4>
+
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-c-inline">
+                                <div class="row">
+                                   <div id="divInvoice">
+
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+

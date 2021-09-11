@@ -1,0 +1,452 @@
+﻿@using System.Security.Claims;
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Startup.namaApp - @ViewData["Title"]</title>
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    @*CUSTOM SELECT*@
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap-select/css/bootstrap-select.css" asp-append-version="true">
+    <script src="~/lib/bootstrap/bootstrap-select/js/bootstrap-select.js" asp-append-version="true"></script>
+
+    @*content css*@
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/CutomCss.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/content/icons.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datepicker/css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="~/lib/datepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="~/lib/datepicker/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="~/lib/datepicker/css/datepicker3.css" />
+
+
+    @*kendo css*@
+    <link rel="stylesheet" type="text/css" href="~/Content/kendo/css/kendo.common.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/kendo/css/kendo.bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/kendo/css/kendo.default.min.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/kendo/css/kendo.default.mobile.min.css" asp-append-version="true" />
+
+    @*kendo js*@
+    <script src="~/content/kendo/js/kendo.all.min.js" asp-append-version="true"></script>
+
+    @*sweetAlert*@
+    <script src="~/content/sweetalert/js/sweetalert2.all.js" asp-append-version="true"></script>
+    <script src="~/content/sweetalert/js/sweetalert2.min.js" asp-append-version="true"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/sweetalert/css/sweetalert2.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="~/Content/sweetalert/css/sweetalert2.min.css" asp-append-version="true" />
+
+    <script src="~/lib/datepicker/js/bootstrap-datepicker.js" asp-append-version="true"></script>
+
+    @*spinner*@
+    <script src="~/content/spinner/js/spinner.js" asp-append-version="true"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/spinner/css/spinner.css" asp-append-version="true" />
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <link href="~/content/font-awesome3.2.1.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/content/awesome-bootstrap-checkbox.css" />
+    <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/jszip.min.js"></script>
+    <script>
+        var startdateserver = '@Startup.startdateserver';
+        var enddateserver = '@Startup.enddateserver';
+        var dateserver = '@Startup.dateserver';
+        var tglkirimserver = '@Startup.tglkirimserver';
+         var seminggu = '@Startup.seminggu';
+        var serverUrl = '@Startup.serverUrl';
+        var setahun = '@Startup.setahun';
+
+        //$(".dropdown-menu li a").click(function () {
+        //    var selText = $(this).text();
+        //    $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+        //});
+
+    </script>
+
+</head>
+<body>
+    @{
+        string roleid = ((ClaimsIdentity)User.Identity).FindFirst("RoleID").Value;
+        string Branch = ((ClaimsIdentity)User.Identity).FindFirst("Branch").Value;
+        string userid = ((ClaimsIdentity)User.Identity).FindFirst("UserID").Value;
+
+    }
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 gradientBackground navbar-fixed-top">
+            <div class="page-container nav">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LiquidERP</a>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (roleid == "PENJUALAN" || roleid == "UAT" || roleid == "SPV" || roleid == "SPV1" || roleid == "LOGISTIK")
+                        {
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    Master
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @*<a class="dropdown-item" asp-area="" asp-controller="Master" asp-action="Kota">Kota</a>*@
+
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="MBarang" asp-action="Index">Barang</a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Giro">Giro</a>
+                                    @if (roleid == "SPV" || roleid == "SPV1" || roleid == "UAT" || userid == "natali" || userid == "hiong")
+                                    {
+
+                                        @if (roleid == "UAT" || userid == "edwin" || userid == "aan")
+                                        {
+                                            <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Pegawai" asp-action="Index">User & Pegawai</a>
+                                            <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Role">Role</a>
+                                        }
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Harga">Harga</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Supplier">Supplier</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Buku_Besar">Buku Besar GL</a>
+                                        <div class="divider"></div>
+                                        <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+                                            Master Paket
+                                            <ul class=" dropdown-menu">
+                                                <li>
+                                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="BookingPaket" asp-action="Create">Booking Paket</a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="BookingPaket" asp-action="Index">Monitoring</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="divider"></div>
+                                    }
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Master" asp-action="Customer">Customer</a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="TipeTrans" asp-action="Index">Update Tipe Trans</a>
+
+                                </div>
+                            </li>
+                        }
+
+                        @if (roleid == "UAT" || roleid == "SPV" || roleid == "SPV1" || roleid == "LOGISTIK")
+                        {
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    Purchasing
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                    @*<a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="RequestPO">Request Purchasing Order</a>
+        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="ApprovalRequestPO">Approval Request PO</a>*@
+                                    @if (roleid == "LOGISTIK" || roleid == "SPV" || roleid == "SPV1" || roleid == "UAT" || userid == "edwin" || userid == "aan")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="Create">Create Purchasing Order</a>
+                                        @if (roleid == "UAT" || userid == "edwin" || userid == "aan")
+                                        {
+                                            <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="Approval">Approval Purchasing Order</a>
+                                        }
+                                      
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="ReturnPO">Return Purchasing Order</a>
+                                       
+
+                                        <div class="divider"></div>
+                                        <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+                                            Monitoring
+                                            <ul class=" dropdown-menu">
+                                                <li>
+                                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="Index">Monitoring Purchasing Order</a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="ReturnList">Monitoring Return PO</a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="PO" asp-action="LastPO">Monitoring PO Terakhir</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="divider"></div>
+                                    }
+                                </div>
+
+                            </li>
+                        }
+
+                        @if (roleid == "UAT" || roleid == "SPV" || roleid == "SPV1" || roleid == "LOGISTIK")
+                        {
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    INV-Barang Masuk
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="QC" asp-action="Index">Penerimaan PO</a>
+                                    @*<a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="Create">Penerimaan PO</a>*@
+                                    <div class="divider"></div>
+                                    <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+                                        Monitoring
+                                        <ul class=" dropdown-menu">
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="QC" asp-action="LaporanKartuStok">Laporan Kartu Stok</a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="QC" asp-action="LaporanKartuStokGudang">Laporan Kartu Stok Gudang</a>
+                                            </li>
+
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="StokGudang">Stok Saldo Cabang</a>
+
+                                            </li>
+                                            <li>
+
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="StokAllGudang">Stok Saldo All Cabang</a>
+                                            </li>
+                                            @*<li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="QC" asp-action="MonitoringQC">Lap Inspeksi QC</a>
+                                            </li>*@
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="Index">Lap Penerimaan PO</a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="MutasiMasuk" asp-action="MonMtsMasuk">Lap Mutasi Masuk </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="TerimaBebas">Lap Barang Masuk Bebas</a>
+
+                                            </li>
+                                            <li>
+                                                <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="MonitoringOpname">Lap Opname </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="divider"></div>
+
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="MutasiMasuk" asp-action="Index">Mutasi Masuk Cabang </a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="TerimaBebas">Barang Masuk Bebas </a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="StokOpname">Stok Opname</a>
+                                    @if (roleid == "UAT" || roleid == "SPV1")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="ResetBooked">Reset Booked</a>
+
+                                    }
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    INV-Barang Keluar
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="MutasiCabang">Mutasi Keluar Cabang</a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="MutasiBebas">Barang Keluar Bebas</a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="MMutasiCabang">Monitoring Mutasi Keluar Cabang</a>
+                                </div>
+                            </li>
+
+                        }
+
+                        @if (roleid == "PENJUALAN" || roleid == "UAT" || roleid == "SPV" || roleid == "SPV1" || roleid == "LOGISTIK" || roleid == "SALES")
+                        {
+                            <li class="nav-item dropdown dropdownMenu">
+
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    Sales
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @if (roleid == "PENJUALAN" || roleid == "UAT" || roleid == "SPV" || roleid == "SPV1")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="Create">Sales Order</a>
+                                    }
+                                    @if (roleid == "PENJUALAN" || roleid == "UAT" || roleid == "SPV" || roleid == "SPV1" || roleid == "LOGISTIK")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="Inden">Form Inden</a>
+                                        @*<a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="Alokasi">Form Alokasi</a>*@
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="alokasi_BO">Form Alokasi Booking Order</a>
+
+                                        <div class="divider"></div>
+                                        <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+
+                                            Monitoring
+                                            <ul class=" dropdown-menu">
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="Index">Sales Monitoring</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="QC" asp-action="LaporanKartuStokGudang">Laporan Kartu Stok Cabang</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="StokGudang">Stok Saldo Cabang</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="StokAllGudang">Stok Saldo All Cabang</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Produksi" asp-action="Index">Monitoring DPB</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ViewSalesSJ" asp-action="MonSJ">Monitoring Surat Jalan/Kembali</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ViewSalesSJ" asp-action="ReportSJK">Cetak SJ Kembali</a> </li>
+                                                <li> <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Retur" asp-action="Index">Lap Retur Non-Cash</a></li>
+
+
+                                            </ul>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Retur" asp-action="Create">Retur NONCASH</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Produksi" asp-action="CetakDPB">Cetak DPB</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Produksi" asp-action="Create">Daftar Persiapan Barang (DPB)</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Produksi" asp-action="DSiapkirim">Proses SJ(DN)</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="SALES_SJK_Web" asp-action="editSJ">Edit SJ</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ViewSalesSJ" asp-action="CetakSJ">Cetak SJ</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="SALES_SJK_Web" asp-action="Index">SJ Kembali</a>
+
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ViewSalesSJ" asp-action="ReportSJK">Cetak Faktur</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="DO" asp-action="Index">Sales Monitoring</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Inventory" asp-action="KalkulasiStok">Kalkulasi Stok</a>
+
+
+
+                                    }
+
+                                </div>
+                            </li>
+                        }
+
+                        @if (roleid == "KASIR" || roleid == "UAT" || roleid == "FIN")
+                        {
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    Finance
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @*<a class="dropdown-item" asp-area="" asp-controller="Master" asp-action="Kota">Kota</a>*@
+
+
+
+                                    @if (roleid == "FIN" || roleid == "UAT")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Fin_AR_Lunas" asp-action="Create">Pelunasan PIutang (AR)</a>
+                                    }
+
+                                    @if (roleid == "FIN" || roleid == "UAT")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Fin_AP_Lunas" asp-action="Create">Pelunasan Hutang(AP)</a>
+                                    }
+
+                                    @if (roleid == "FIN" || roleid == "UAT")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Giro" asp-action="Index">Penerimaan GIRO/Cek</a>
+                                    }
+
+                                    @*@if (roleid == "FIN" || roleid == "UAT")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="GL">Monitoring Buku Besar</a>
+                                    }*@
+                                    <div class="divider"></div>
+                                    <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+
+                                        Monitoring
+                                        <ul class=" dropdown-menu">
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Fin_AR_Lunas" asp-action="MonAR">Mon Pelunasan Piutang</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Fin_AP_Lunas" asp-action="MonAP">Mon Pelunasan Hutang</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Kasir" asp-action="MonKasBon">Pengajuan Kas Bon</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Kasir" asp-action="MonKasBank">Keluar Masuk Kas dan Bank</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Giro" asp-action="MonitoringGiro">Monitoring Giro</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="GL">Monitoring Harian Transaksi</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="Jurnal">Monitoring Transaksi Jurnal</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="MonPiutangUsaha">Monitoring Piutang Usaha</a></li>
+                                            <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="MonHutangUsaha">Monitoring Hutang Usaha</a></li>
+
+
+
+                                        </ul>
+                                    </div>
+
+                                    @if (roleid == "FIN" || roleid == "UAT" || roleid == "KASIR")
+                                    {
+                                        <div class="divider"></div>
+                                        <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+                                            Kasir
+                                            <ul class=" dropdown-menu">
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Kasir" asp-action="Index">Pengajuan Kas Bon</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Kasir" asp-action="KasMasukKeluar">Penerimaan / Pengeluaran</a></li>
+                                            </ul>
+                                        </div>
+                                    }
+
+
+
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown dropdownMenu">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                    Accounting
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @if (roleid == "FIN" || roleid == "UAT")
+                                    {
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Kasir" asp-action="JurnalRupa">Entry Jurnal Rupa2</a>
+                                        <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Finance" asp-action="PostingJurnal">Posting Jurnal </a>
+                                        <div class="nav-link text-dark dropdown-item waves-effect dropdown-submenu">
+
+                                            Report
+                                            <ul class=" dropdown-menu">
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ReportFin" asp-action="Neraca">Laporan Aktiva</a></li>
+                                                <li><a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="ReportFin" asp-action="LabaRugi">Laporan Rugi Laba</a></li>
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item dropdown dropdownMenu">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                                @{
+                                    string userID = ((ClaimsIdentity)User.Identity).FindFirst("UserID").Value;
+                                }
+                                @userID
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @if (roleid == "UAT")
+                                {
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Account" asp-action="ChangeCabang">Pindah set Cabang</a>
+                                }
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                                    <a class="nav-link text-dark dropdown-item waves-effect" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </div>
+                            <span style="font-size:medium; font-weight:700;">@Branch</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="page-container">
+        <main role="main" class="page-content">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted gradientBackground">
+            <div class="page-container ">
+                &copy; 2019 - TOKO 88 Group - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+
+
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

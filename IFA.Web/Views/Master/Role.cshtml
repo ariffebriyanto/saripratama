@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Master Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetRole", "Master")';
+    var urlSave = '@Url.Action("UpdateRole", "Master")';
+    var urlDelete = '@Url.Action("DeleteRole", "Master")';
+    var urlUpdate = '@Url.Action("UpdateRole", "Master")';
+    // var GudangList = @(Html.Raw(ViewBag.GudangList));
+    
+</script>
+<script type="text/javascript" src="~/Script/Master/Role.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Master Role</span>
+        @*<button id="addKota" class="btn btn-primary pull-right" onclick="addForm1()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Pegawai</button>*@
+    </div>
+    <div>
+
+    </div>
+    <div id="GridPeg" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

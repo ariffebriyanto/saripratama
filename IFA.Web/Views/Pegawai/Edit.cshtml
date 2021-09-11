@@ -1,0 +1,86 @@
+﻿@model IFA.Domain.Models.SIF_Pegawai
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    Master Pegawai
+                </h6>
+
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm("Save", "Pegawai", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-10 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+
+                        <div class="col-md-6 form-c-inline">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Kode Pegawai<span class="red">*</span></label>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Kode_Pegawai, new { @class = "form-control", id = "Kode_Pegawai" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-c-inline">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Nama Pegawai<span class="red">*</span></label>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Nama_Pegawai, new { @class = "form-control", id = "Nama_Pegawai" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-lg-2 page-right-content">
+                    <div class="row row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class="row right-buttons">
+                                <div class="col-xs-12">
+                                    <div class="row ">
+
+                                        <div class="col-xs-6 col-sm-12 row-right-button">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                        </div>
+                                        <div class="col-xs-6 col-sm-12 row-right-button">
+                                            <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+
+                                        </div>
+                                        <div class="col-xs-6 col-sm-12 row-right-button">
+                                            <button id="update" class="btn btn-primary right-button" onclick="onUpdateClicked(); return false;" style="display:none;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
