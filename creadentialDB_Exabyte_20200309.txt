@@ -1,0 +1,11 @@
+--SQL Credential
+--Production
+ServerName: 103.82.241.106,49194
+login: liquiderp
+password: TE55Q8j@43
+
+--SQL Credential
+--QC
+ServerName: 103.82.241.106,2103
+login: sa
+password: 4fU~}k%+YZ
