@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Create Giro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("listgiro", "Giro")';
+    var urlSave = '@Url.Action("Save", "Giro")';
+    var urlDelete = '@Url.Action("DeleteSupplier", "Master")';
+    var urlUpdate = '@Url.Action("UpdateSupplier", "Master")';
+    var urlGetJenisGiro = '@Url.Action("GetJenisGiro", "Giro")';
+    var urlGetDivisi = '@Url.Action("GetDivisi", "Giro")';
+    var urlGetBankAsal = '@Url.Action("GetBankAsal", "Giro")';
+    var urlGetBankTujuan = '@Url.Action("GetBankTujuan", "Giro")';
+    var urlGetValuta = '@Url.Action("GetValuta", "Giro")';
+    var urlGetKartu = '@Url.Action("GetKartu", "Giro")';
+    
+</script>
+
+<script src="~/Script/Giro/Index.js" asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">PENERIMAAN GIRO/CEK</span>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+           @* <button id="btnTambah" class="btn btn-info pull-right" onclick="onTambah();" style="margin-right: 15px;"><i class="glyphicon glyphicon-print"></i>&nbsp; Tambah</button>*@
+
+        </div>
+    </div>
+
+    <div id="GridGiro" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+
+<style type="text/css">
+    .k-grid-edit{
+        display:none;
+    }
+    .k-grid-delete{
+        display:none;
+    }
+</style>

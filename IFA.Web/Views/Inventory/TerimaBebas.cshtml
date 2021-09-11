@@ -1,0 +1,186 @@
+﻿@model IFA.Domain.Models.INV_GUDANG_IN
+@{
+    ViewData["Title"] = "Penerimaan Bebas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+  
+  
+    var urlCreate = '@Url.Action("TerimaBebas", "Inventory")';
+    var urlSave = '@Url.Action("SaveTerimaBebas", "Inventory")';
+    var urlSatuan = '@Url.Action("GetSatuanCbo", "MSatuan")';
+    var urlGetBarang = '@Url.Action("GetBarangCbo", "Inventory")';
+    var UrlGetGudang = '@Url.Action("GetGudang", "Inventory")';
+    var urlGetDataTerima = '@Url.Action("GetTerima", "Inventory")';
+    var urlGetDetailTerima = '@Url.Action("GetDetailTerima", "Inventory")';
+    var BranchUser ='@ViewBag.BranchUser';
+   
+   
+    var Mode = '@ViewBag.Mode';
+    var id = '@ViewBag.Id';
+    
+
+
+</script>
+<script type="text/javascript" src="~/Script/Inventory/TerimaBarang/TerimaBebas.js" asp-append-version="true"></script>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    Penerimaan Bebas
+                </h6>
+            </div>
+            <div class=" floatright" style="float:right;">
+            </div>
+        </div>
+    </div>
+
+    <div class="" style="min-height:450px;">
+        <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+            <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                <div class="row" id="form">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Gudang Tujuan<span class="red">*</span></label>
+                                    <div class="col-md-10">
+
+                                        <select name="IdGudang" id="IdGudang" class="selectpicker width99" data-live-search="true"></select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Keterangan<span class="red">*</span></label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" rows="4" id="Keterangan" name="Keterangan" style="resize:none;max-width:50%"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">No Transaksi<span class="red">*</span></label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="" id="no_trans" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Supplier<span class="red">*</span></label>
+                            <div class="col-md-10">
+
+
+                                <input class="form-control form-control inputPink" value="" id="Supplier" style="width:50%" />
+                                <input type="text" id="p_np" name="p_np" hidden="hidden" />
+                            </div>
+                        </div>
+                    </div>*@
+                            <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                <div class="row">
+                                    <label class="col-md-2 col-form-label">Tanggal<span class="red">*</span></label>
+                                    <div class="col-xs-12 col-sm-9 col-lg-4">
+                                        <div class='input-group date' id="divtanggal">
+                                            <input id='tanggal' type='text' class="form-control datepicker" value="" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                @if (ViewBag.Mode == "NEW")
+                {
+                    <div class="col-md-12 form-c-inline">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="add" class="btn btn-primary pull-right" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item(F2)</button>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="GridPODetail" class="font10"></div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                <div class=" row-navandbuttons">
+                    <div class="col-xs-12">
+                        <div id="right-content-buttons" class=" right-buttons">
+                            <div class="col-xs-12">
+                                <div class=" ">
+
+                                    @*@if (ViewBag.Mode == "NEW" || ViewBag.Mode == "VIEW" || ViewBag.Mode == "EDIT")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                                <button id="back" class="btn btn-danger right-button" onclick="showCreate(); return false;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW</span></button>
+                                            </div>
+                                        }*@
+                                    @if (ViewBag.Mode == "NEW" || ViewBag.Mode == "EDIT")
+                                    {
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "VIEW")
+                                    {
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="print" class="btn btn-success right-button" onclick="onPrintClicked(); return false;"><i class="glyphicon glyphicon-print paddingRight10" aria-hidden="true"></i><span>Print</span></button>
+                                        </div>
+                                    }
+                                    @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "VIEW")
+                                    {
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-navigatortoggler">
+                    <div class="col-xs-12 row-right-button">
+                        <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                            <span>
+                                <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

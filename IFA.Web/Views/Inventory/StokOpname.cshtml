@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "Stok Opname";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var urlGetData = '@Url.Action("GetOpname", "Inventory")';
+    var urlBarang = '@Url.Action("GetBarangSaldo", "Inventory")';
+    var urlSatuan = '@Url.Action("GetSatuan", "Inventory")';
+    var urlSave = '@Url.Action("SaveOpname", "Inventory")';
+    var urlOpname = '@Url.Action("StokOpname", "Inventory")';
+    var urlGudang = '@Url.Action("GetGudang", "Inventory")';
+    var Mode = '@ViewBag.Mode';
+    var idOpname = '@ViewBag.Id';
+        var Gudang = '@ViewBag.Gudang';
+</script>
+<script src="~/Script/Inventory/StokOpname.js" asp-append-version="true"></script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    FORM STOK OPNAME
+                </h6>
+
+            </div>
+        </div>
+
+    </div>
+    @using (Html.BeginForm("Save", "StokOpname", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row" id="form">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">No Transaksi<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control inputPink" value="AUTO GENERATED" id="NoTransaksi" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Tanggal<span class="red">*</span></label>
+                                        <div class="col-xs-12 col-sm-9 col-lg-4">
+                                            <div class='input-group date' id="divtanggal">
+                                                <input id='tanggal' type='text' class="form-control datepicker" value="" />
+
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Gudang<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="gudang" id="gudang" class="selectpicker width99 inputGreen" data-live-search="true" onchange="onGDChange();"></select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Keterangan</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="3" id="Keterangan" name="Keterangan" style="resize:none;max-width:100%"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <button id="addNew" class="btn btn-primary pull-right" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GridStokOpname" class="font10"></div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                            <button id="new" class="btn btn-primary right-button" onclick="newCreate(); return false;" style="display:none;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW</span></button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                        </div>
+
+
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showlist(); return false;"><i class="glyphicon glyphicon-arrow-left paddingRight10" aria-hidden="true"></i><span>Kembali</span></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

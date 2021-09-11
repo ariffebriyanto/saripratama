@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Terima Barang";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetTerimaBebas", "Inventory")';
+    var urlGetDetailData = '@Url.Action("GetDetailTerimaBebas", "Inventory")';
+    var urlCreate = '@Url.Action("Create", "Inventory")';
+    var urlPrint = '@Url.Action("GetPrintTerima", "Inventory")';
+
+</script>
+<script type="text/javascript" src="~/Script/Inventory/TerimaBarang/Index.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Terima Barang</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-4 col-form-label">PO Number:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" value="" id="PONo" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-3">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="getData();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah PO</button>
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Status:</label>
+                    <div class="col-md-8">
+                        <select name="status" id="status" class="selectpicker width170" data-live-search="true" onchange="oncboFilterChanged();">
+                            <option value="">ALL</option>
+                            <option value="ENTRY">ENTRY</option>
+                            <option value="REVISE">REVISE</option>
+                            <option value="OPEN">OPEN</option>
+                            <option value="OUTSTANDING">OUTSTANDING</option>
+                            <option value="CLOSE">CLOSE</option>
+                            <option value="BATAL">BATAL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridTerima"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

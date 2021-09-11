@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Posting Jurnal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var urlGetData = '@Url.Action("GetJurnal", "Finance")';
+    var urlPosting = '@Url.Action("SavePostingJurnal", "Finance")';
+    var urlGetDetail= '@Url.Action("GetJurnalDetail", "Finance")';
+
+</script>
+
+
+<script src="~/Script/Finance/PostingJurnal.js" asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Posting Jurnal</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+                <button id="btnPosting" class="btn btn-primary pull-right" onclick="onPosting();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Posting Jurnal</button>
+            </div>
+        </div>
+
+        @*Grid*@
+        <div class="col-md-12" style="display:inline-block;">
+
+            <div class="tab-content">
+
+                <div id="detail1" class="tab-pane fade in active show">
+                    <div id="gvList"></div>
+                    <script type="text/x-kendo-template" id="template">
+                        <div class="tabstrip">
+                            <ul>
+                                <li class="k-state-active">
+                                    Details
+                                </li>
+                            </ul>
+                            <div>
+                                <div class="detail"></div>
+                            </div>
+                        </div>
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+<style type="text/css">
+    .k-grid-header-wrap table thead tr th .k-checkbox-label {
+        display: inline;
+        padding: 0px 40px 0px 0px !important;
+    }
+
+    .k-grid .k-grid-header .k-header .k-link {
+        height: auto;
+    }
+
+    .k-grid .k-grid-header .k-header {
+        white-space: normal;
+    }
+</style>

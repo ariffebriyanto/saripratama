@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Terima Barang";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetTerimaPartial", "Inventory")';
+    var urlGetDetailData = '@Url.Action("GetDetailTerima", "Inventory")';
+    var urlCreate = '@Url.Action("Create", "Inventory")';
+    var urlPrint = '@Url.Action("GetPrintTerima", "Inventory")';
+    var urlCreateQC = '@Url.Action("Index", "QC")';
+
+</script>
+<script type="text/javascript" src="~/Script/Inventory/TerimaBarang/Index.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Terima Barang</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                    <div class="col-md-2">
+                        <div class='input-group date' id="divtanggalfrom">
+                            <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                    <div class="col-md-2">
+                        <div class='input-group date' id="divtanggalto">
+                            <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="">
+                            <label class="col-md-3 col-form-label">Barang:</label>
+                            <div class="col-md-9">
+                                @*<select name="barang" id="barang" class="selectpicker width99" data-live-search="true"></select>*@
+                                <input id="barang" class="form-control" placeholder="Filter Barang " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="addPO" class="btn btn-info pull-right" onclick="searchPO();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Penerimaan</button>
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    @*<div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Filter:</label>
+                    <div class="col-md-9">
+                        <input id="filter" class="form-control" placeholder="Filter " />
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="margin-left:15px;">
+                <button id="btnFilter" class="btn btn-info" onclick="oncboFilterChanged();" style="padding-left:10px;"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+            </div>
+        </div>
+
+    </div>*@
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridTerima"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

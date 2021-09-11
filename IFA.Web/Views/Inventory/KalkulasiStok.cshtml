@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Kalkulasi Stok";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlPostKalkulasi = '@Url.Action("PostKalkulasi", "Inventory")';
+
+     var urlGetBarang = '@Url.Action("GetBarang", "PO")';
+</script>
+<script src="~/Script/Inventory/KalkulasiStok.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Kalkulasi Stok Barang</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+                    <label class="col-md-3 col-form-label">Barang:</label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="" id="barang" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button id="addPO" class="btn btn-primary" onclick="onKalkulasi();" style="padding-left:10px;"><i class="glyphicon glyphicon-send"></i>&nbsp; Kalkulasi</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>

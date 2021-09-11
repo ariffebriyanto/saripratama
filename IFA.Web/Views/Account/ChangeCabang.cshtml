@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Change Cabang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <script type="text/javascript">
+        var urlUpdateCabang = '@Url.Action("UpdateCabang", "Account")';
+        var urlLogout = '@Url.Action("Logout", "Account")';
+        var urlGudang = '@Url.Action("GetGudang", "Inventory")';
+
+    </script>
+<script src="~/Script/Master/PindahCabang.js" asp-append-version="true"></script>
+<div class="panel panel-default" id="createForm">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    Ubah set default Cabang
+                </h6>
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("UpdatePassword", "Account", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-4 col-form-label">Password Saat ini<span class="red">*</span></label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" value="" id="password" type="password" placeholder="Untuk keamanan Masukan password saat ini" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-4 col-form-label">Set Default Cabang<span class="red">*</span></label>
+                                        <div class="col-md-8">
+                                            <select name="gudang" id="gudang" class="selectpicker width99 inputGreen" data-live-search="true"></select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-4 col-form-label"></label>
+                                        <div class="col-md-8">
+                                            <button id="update" type="button" class="btn btn-primary" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            }
+        </div>
+
+    }
+</div>
+

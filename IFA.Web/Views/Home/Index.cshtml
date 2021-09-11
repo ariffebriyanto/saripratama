@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<script type="text/javascript">
+    var urlGetStatPO = '@Url.Action("GetStatPO", "Home")';
+    var urlGetStatMTS = '@Url.Action("GetStatMTS", "Home")';
+    var urlGetStatPIU = '@Url.Action("GetStatPIU", "Home")';
+        var urlGetStatDUE = '@Url.Action("GetStatDUE", "Home")';
+     var urlGetBooked = '@Url.Action("GetStatBooked", "Home")';    //GetStatBooked
+</script>
+<script src="~/Script/Home/Home.js" asp-append-version="true"></script>
+<div class="text-center">
+    <h1 class="display-4">Dashboard</h1>
+</div>
+
+<div class="col-md-12 ">
+    <div class="col-md-6 ">
+
+        <div class="panel panel-default">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">Piutang Limit</div>
+
+                <div class="panel-body" style="display:inline-block;">
+                    <div id="GridPiu"></div>
+                </div>
+
+            </div>
+            <div class="panel panel-success">
+
+                <div class="panel-heading">Top Stat Booked</div>
+
+                <div class="panel-body" style="display:inline-block;">
+                    <div id="GridBooked"></div>
+                </div>
+            </div>
+            <div class="panel panel-success">
+
+                <div class="panel-heading">Piutang Due Date</div>
+
+                <div class="panel-body" style="display:inline-block;">
+                    <div id="GridDue"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-6 ">
+        <div class="panel panel-default">
+            <div class="panel panel-success">
+                <div class="panel-heading">Mutasi Outstanding > 7 Hari </div>
+
+                <div class="panel-body" style="display:inline-block;">
+                    <div id="GridMTS"></div>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">PO Status OPEN</div>
+
+                <div class="panel-body" style="display:inline-block;">
+                    <div id="GridStatusPO"></div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

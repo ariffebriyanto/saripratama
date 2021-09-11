@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Purchasing Order";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetApproval", "PO")';
+    var urlGetDetailData = '@Url.Action("GetDetailApprovalPO", "PO")';
+
+    var urlForm = '@Url.Action("EditPO", "PO")';
+    var urlSave = '@Url.Action("SaveAlokasi", "DO")';
+    var urlCreate = '@Url.Action("Create", "PO")';
+      var urlGetDetailInden = '@Url.Action("GetInden", "DO")';
+    var urlInden = '@Url.Action("Inden", "DO")';
+      var urlGetDataInden = '@Url.Action("GetIndenAlokasi", "DO")';
+</script>
+<script src="~/Script/DO/Alokasi.js"  asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Form Alokasi</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <button id="btnSave" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+    </div>
+
+    <div class="col-md-12" style="display:inline-block;">
+        <div class="k-header k-grid-toolbar">
+            <div id="gvList"></div>
+        </div>
+
+
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+    <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+
+    </div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

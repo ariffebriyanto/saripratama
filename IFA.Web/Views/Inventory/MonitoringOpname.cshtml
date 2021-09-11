@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Opname";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetMonOpname", "Inventory")';
+    var urlGetDetailData = '@Url.Action("GetMonOpnameDTL", "Inventory")';
+    var urlCreate = '@Url.Action("StokOpname", "Inventory")';
+    var urlPrint = '@Url.Action("GetPrintTerima", "Inventory")';
+
+</script>
+<script type="text/javascript" src="~/Script/Inventory/MonitoringOpname.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Opname</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+        
+        </div>
+        <div class="col-md-4">
+            <button id="addPO" class="btn btn-primary pull-right" onclick="addnewPO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Opname</button>
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+      
+
+    </div>
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridTerima"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+
+
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

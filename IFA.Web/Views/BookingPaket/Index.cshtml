@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring BO Paket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var urlGetData = '@Url.Action("GetPaketMontoring", "BookingPaket")';
+    var urlCreate = '@Url.Action("Create", "BookingPaket")';
+
+</script>
+<script src="~/Script/BookingPaket/Index.js" asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Booking Paket</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        @*Grid*@
+        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12" style="display:inline-block;">
+
+                        <div id="GridPaket"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

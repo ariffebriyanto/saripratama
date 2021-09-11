@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Stok Gudang";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetStokAllGudang", "Inventory")';
+    var urlGetPeriode = '@Url.Action("GetPeriode", "Inventory")';
+    var urlGetBarang = '@Url.Action("GetBarang", "QC")';
+</script>
+<script type="text/javascript" src="~/Script/Inventory/StokAllGudang.js" asp-append-version="true"></script>
+<style>
+   
+    .k-input {
+        height: 29px;
+        width: 250px;
+        /*background-color:mediumseagreen;*/
+    }
+
+    /*.k-widget.k-autocomplete {
+        width: 300px;
+    }*/
+    .btn-light {
+        /*background-color: mediumseagreen;*/
+    }
+    /*.dropdown-toggle.bs-placeholder {
+        width: 150px;
+    }*/
+    /*.bootstrap-select >.dropdown-toggle {
+        width: 150px;
+    }
+    .bootstrap-select .dropdown-menu {
+        width: 150px;
+    }*/
+
+    .form-group input[type="checkbox"] {
+        display: none;
+    }
+
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+                display: none;
+            }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+                display: inline-block;
+            }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;
+        }
+
+
+</style>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Barang per Gudang</span>
+        </div>
+    </div>
+
+
+ 
+
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-2 col-form-label">Periode:</label>
+                    <div class="col-md-9 widthcboCustom">
+                        <select name="periode" id="periode" class="selectpicker width99" data-live-search="true"></select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="">
+                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Barang:</label>
+                    <div class="col-md-3 ">
+                        <select name="barang" id="barang" class="selectpicker width99" data-live-search="true"></select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <button id="button" onclick="searchBarang();" class="btn btn-info pull-left"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+   
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridGudangStock" ></div>
+       
+    </div>
+    
+
+
+ 
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

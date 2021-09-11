@@ -1,0 +1,314 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Transaksi Jurnal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    var urlGetData = '@Url.Action("GetMonTransaksiJurnalPartial", "Finance")';
+    var urlCreate = '@Url.Action("Create", "DO")';
+   // var urlGetData = '@Url.Action("GetDO_mon", "DO")';
+    var urlGetByDO = '@Url.Action("GetDO", "DO")';
+    var urlGetByStok = '@Url.Action("GetByStok", "DO")';
+    var urlGetByCust = '@Url.Action("GetByCust", "DO")';
+     var urlGetRekBank = '@Url.Action("RekGl", "Kasir")';
+    var urlGetDataInden = '@Url.Action("GetIndenDO", "DO")';
+    var salesID = '@ViewBag.salesID';
+    var RoleName= '@ViewBag.RoleName';
+    var urlDeleteInden = '@Url.Action("DeleteInden", "DO")';
+    var urlGetDetailData = '@Url.Action("GetMonTransaksiJurnalDetail", "Finance")';
+    var urlDeleteData= '@Url.Action("Delete", "DO")';
+    var urlGetDetailInden = '@Url.Action("GetInden", "DO")';
+    var urlInden = '@Url.Action("Inden", "DO")';
+    var urlGetCustomer = '@Url.Action("GetCustomer", "DO")';
+    var urlGetSaldo = '@Url.Action("GetSaldo", "Finance")';
+    var urlGetBarang = '@Url.Action("GetBarang", "PO")';
+    var urlGetTipe = '@Url.Action("GetTipeTransMon", "JenisBayar")';
+    var urlGetJenis = '@Url.Action("GetJnsJurnal", "JenisBayar")';
+</script>
+
+<script src="~/Script/Finance/Jurnal.js" asp-append-version="true"></script>
+
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Transaksi Jurnal</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        @*filter*@
+        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="margin-bottom:20px">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6" style="display:none;">
+                        <label class="col-md-1 col-form-label" style="margin-left: 10px;">NO SO<span></span></label>
+                        <div class="col-md-3">
+
+
+                            <input class="form-control form-control" value="" id="no_sp" />
+                            <input type="text" id="p_np" name="p_np" hidden="hidden" />
+
+                        </div>
+                        <div class="col-md-2">
+                            <button id="addPO" class="btn btn-info pull-right" onclick="getByDO();"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="">
+                            <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                            <div class="col-md-3">
+                                <div class='input-group date' id="divtanggalfrom">
+                                    <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                            <div class="col-md-3">
+                                <div class='input-group date' id="divtanggalto">
+                                    <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="addCustomer" type="button" class="btn btn-primary" onclick="getByDO(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+                            </div>
+
+                            <div class="col-md-12" style="display:none">
+                                <label class="col-md-8 col-form-label" style="text-align:right">Saldo Awal: </label>
+                                <input class="form-control pull-right inputGreen text-right decimalKendo" type="number" id="saldo_awal" name="saldo_awal" value="0" readonly>
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 col-form-label">Jenis Jurnal<span class="red">*</span></label>
+                        <div class="col-md-10">
+                            <select name="jns_jurnal" id="jns_jurnal" class="selectpicker w-100" data-live-search="true" onchange="JenisJurnalChange()"></select>
+                        </div>
+
+
+                        <label class="col-md-2 col-form-label">Tipe Transaksi<span class="red">*</span></label>
+                        <div class="col-md-10">
+                            <select name="tipe_transaksi" id="tipe_transaksi" class="selectpicker w-100" data-live-search="true"></select>
+                        </div>
+
+                        <div class="col-md-10" style="display:none;">
+                            <select name="Kd_Customer" id="Kd_Customer" data-live-search="true"></select>
+                        </div>
+
+
+                        <div class="col-md-10" style="display:none">
+                            <label class="col-md-2 col-form-label">Rekening<span class="red">*</span></label>
+                            <select name="Kd_Rekening" id="Kd_Rekening" class="selectpicker w-100 inputGreen" data-live-search="true"></select>
+
+
+
+                        </div>
+
+                        <label class="col-md-2 col-form-label">Valuta<span class="red">*</span></label>
+                        <div class="col-md-6">
+                            <select name="valuta" id="valuta" class="selectpicker w-100">
+                                data-live-search="true">
+                                <option value="IDR" selected>Rupiah</option>
+                            </select>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="col-md-12 col-form-label">
+
+                            <input type="radio" id="rpost" name="rpost" value="sudah" onclick="rpostchange()" checked /> <label>Sudah Diposting</label>
+
+                        </div>
+
+
+
+
+
+
+                        <div class="col-md-2 col-form-label">
+
+                            <input type="radio" id="rnopost" name="rnopost" value="belum" onclick="rnopostchange()" />  <label>Belum Diposting</label>
+                        </div>
+
+
+
+                        <input type="text" id="radioposting" name="radioposting" value="sudah" hidden="hidden" />
+
+
+
+                    </div>
+
+
+
+
+
+                        @*<div class="col-md-2">
+            <button id="addCustomer" type="button" class="btn btn-primary" onclick="getByCust(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+        </div>*@
+
+
+
+                        <div class="col-md-12" style="margin-bottom: 15px;">
+
+                            <div class="col-md-6 hidden">
+
+                                <label class="col-md-2 col-form-label">Barang:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control w-100" value="" id="barang" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="addCustomer" type="button" class="btn btn-primary" onclick="getByStok(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        @*filter*@
+                        <div class="col-md-12" style="margin-bottom: 15px;display:none;">
+                            <div class="col-md-8">
+
+                                <div class="">
+                                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Status:</label>
+                                    <div class="col-md-3">
+                                        <select name="status" id="status" class="selectpicker width170" data-live-search="true" onchange="oncboFilterChanged();">
+                                            <option value="">ALL</option>
+                                            <option value="PERSIAPAN BARANG">PERSIAPAN BARANG</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-md-1 col-form-label" style="margin-left: 10px;">Jenis DO:</label>
+                                    <div class="col-md-3">
+                                        <select name="jenisDO" id="jenisDO" class="selectpicker width99 inputGreen" data-live-search="true" onchange="oncboFilterChanged()">
+                                            <option value="">ALL</option>
+                                            <option value="REGULER">REGULER</option>
+                                            <option value="TOP URGENT">TOP URGENT</option>
+                                            <option value="URGENT">URGENT</option>
+                                            <option value="CASH">CASH</option>
+                                            <option value="BOOKING ORDER">BOOKING ORDER</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4" style="display:none;">
+                                <button id="addPO" class="btn btn-primary pull-right" onclick="addnewDO();"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah DO</button>
+                            </div>
+
+
+                        </div>
+                        @*Grid*@
+                        @*<div class="col-md-12" style="display:inline-block;">
+
+            <ul class="nav nav-tabs">
+                <li class="tabpage active"><a data-toggle="tab" href="#detail1">Sales Order</a></li>
+                <li class="tabpage"><a data-toggle="tab" href="#uraian">Inden</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+                <div id="detail1" class="tab-pane fade in active show">
+                    <div id="GridDO"></div>
+                    <script type="text/x-kendo-template" id="template">
+                        <div class="tabstrip">
+                            <ul>
+                                <li class="k-state-active">
+                                    Details
+                                </li>
+                            </ul>
+                            <div>
+                                <div class="detail"></div>
+                            </div>
+
+                        </div>
+
+                    </script>
+                </div>
+                <div id="uraian" class="tab-pane in fade">
+                    <div id="DPMGrid"></div>
+                    <script type="text/x-kendo-template" id="templateInden">
+                        <div class="tabstrip">
+                            <ul>
+                                <li class="k-state-active">
+                                    Details
+                                </li>
+                            </ul>
+                            <div>
+                                <div class="detail"></div>
+                            </div>
+
+                        </div>
+
+                    </script>
+                </div>
+            </div>
+
+        </div>*@
+
+                        <div class="col-md-12" style="display:inline-block;">
+                            <div id="GridDO" class="font10"></div>
+                            <script type="text/x-kendo-template" id="template">
+                                <div class="tabstrip">
+                                    <ul>
+                                        <li class="k-state-active">
+                                            Details
+                                        </li>
+                                    </ul>
+                                    <div>
+                                        <div class="detail"></div>
+                                    </div>
+
+                                </div>
+
+                            </script>
+                        </div>
+                    </div>
+
+
+
+            </div>
+
+            <div id="editForm"></div>
+            <div id="dialog"></div>
+
+
+        </div>
+
+
+        <div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="display:none">
+            <div class="row">
+                <label class="col-md-10 col-form-label" style="text-align:right">Debet Kredit</label>
+                <div class="col-md-2">
+                    <input class="form-control pull-right inputGreen text-right" value="0" id="DebetKredit" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="display:none">
+            <div class="row">
+                <label class="col-md-10 col-form-label" style="text-align:right">Saldo Akhir</label>
+                <div class="col-md-2">
+                    <input class="form-control pull-right inputGreen text-right" value="0" id="SaldoAkhir" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

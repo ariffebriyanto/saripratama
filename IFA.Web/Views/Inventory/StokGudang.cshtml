@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewData["Title"] = "Monitoring Stok Gudang";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetStokGudangPartial", "Inventory")';
+    //var urlGetDetailData = '@Url.Action("GetDetailTerima", "Inventory")';
+    var urlForm = '@Url.Action("EditPO", "PO")';
+    var urlSave = '@Url.Action("SavePO", "PO")';
+    var urlCreate = '@Url.Action("Create", "Inventory")';
+    var urlPrint = '@Url.Action("GetPrintPO", "PO")';
+    var urlGetPeriode = '@Url.Action("GetPeriode", "Inventory")';
+   
+    var urlGetDetailData = '@Url.Action("GetDetailStokGudang", "Inventory")';
+    var urlGetBarang = '@Url.Action("GetBarang", "QC")';
+</script>
+<script type="text/javascript" src="~/Script/Inventory/StokGudang.js" asp-append-version="true"></script>
+<style>
+    /*.k-autocomplete {
+        width: 300px;
+        height: 35px;
+        
+    }*/
+    .k-input {
+        height: 29px;
+        width: 250px;
+        /*background-color:mediumseagreen;*/
+    }
+
+    /*.k-widget.k-autocomplete {
+        width: 300px;
+    }*/
+    .btn-light {
+        /*background-color: mediumseagreen;*/
+    }
+    /*.dropdown-toggle.bs-placeholder {
+        width: 150px;
+    }*/
+    /*.bootstrap-select >.dropdown-toggle {
+        width: 150px;
+    }
+    .bootstrap-select .dropdown-menu {
+        width: 150px;
+    }*/
+
+    .form-group input[type="checkbox"] {
+        display: none;
+    }
+
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+                display: none;
+            }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+                display: inline-block;
+            }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;
+        }
+
+
+</style>
+<div id="wrapperList">
+    <div class="panel-title">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <span class="fontTitle">Monitoring Barang per Gudang</span>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-2 col-form-label">Periode:</label>
+                    <div class="col-md-9 widthcboCustom">
+                        <select name="periode" id="periode" class="selectpicker width99" data-live-search="true"></select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="">
+                    <label class="col-md-2 col-form-label">Barang:</label>
+                    <div class="col-md-8">
+                        <input id="barang" class="form-control" placeholder="Filter Barang " />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="">
+                    <div class="col-md-3">
+                        <button id="button" onclick="searchBarang();" class="btn btn-info"><i class="glyphicon glyphicon-search"></i>&nbsp; Search</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<div class="form-row col-md-12" style="margin-bottom: 10px;">
+    <div class="col-md-3">
+        <div class="[ form-group ]">
+            <input type="checkbox" name="fancy-checkbox-default" id="fancy-checkbox-default" autocomplete="off" />
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-default" class="[ btn btn-danger ]" style="width:85px">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-default" class="[ btn btn-default active ]"  style="width:135px">
+                    Stock Limit
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="[ form-group ]">
+            <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" />
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-primary" class="[ btn btn-primary ]" style="width:85px;margin-left:4px">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-primary" class="[ btn btn-default active ]" style="width:164px">
+                    Stock Aman
+                </label>
+            </div>
+        </div>
+    </div>
+        @*<div class="[ form-group ]">
+            <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success" autocomplete="off" />
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-success" class="[ btn btn-success ]">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-success" class="[ btn btn-default active ]">
+                    Success Checkbox
+                </label>
+            </div>
+        </div>*@
+        @*<div class="col-md-3">
+                <div class="">
+                    <label><input type="checkbox" id="aman">Full View Mon.Stock</label>
+
+                </div>
+                <div >
+                    <label><input type="checkbox" value="anjrit">Option 2</label>
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+                <div class="col-md-2 checkbox checkbox-primary paddingleft42">
+                    <input id="checkbox2" class="styled " type="checkbox">
+                    <label for="checkbox2" class="">
+
+                    </label>
+                </div>
+                <div class="col-md-4">
+
+                    <input class="form-control pull-right inputGreen text-right"  />
+                </div>
+                @*<div >
+                    <label><input type="checkbox">Full View Mon.Stock</label>
+
+                </div>
+                <div>
+                    <label><input type="checkbox" value="">Option 2</label>
+                </div>*@
+
+    </div>
+
+
+
+
+    <div class="" style="display:inline-block;">
+        <div id="GridGudangStock" ></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+    <div class="" style="display:inline-block;">
+        <div class="col-md-12" style="margin-bottom: 15px;margin-top: 15px;">
+            <span class="fontTitle">Detail Barang per Gudang</span>
+        </div>
+    </div>
+
+        <div class="" style="display:inline-block;">
+            <div id="GridDetailGudangStock"></div>
+            <script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            Details
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="detail"></div>
+                    </div>
+
+                </div>
+
+            </script>
+        </div>
+
+
+    </div>
+    </div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+

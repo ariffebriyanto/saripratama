@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewData["Title"] = "Inden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var urlGetCustomer = '@Url.Action("GetCustomer", "DO")';
+    var urlGetKasir = '@Url.Action("GetKasir", "DO")';
+    var idDO = '@ViewBag.Id';
+    var salesID = '@ViewBag.salesID';
+    var urlGetHargaBarang = '@Url.Action("GetHargaBarang", "DO")';
+    var urlCreate = '@Url.Action("Inden", "DO")';
+    var urlSave = '@Url.Action("SaveInden", "DO")';
+    var urlGetData = '@Url.Action("GetInden", "DO")';
+     var Mode = '@ViewBag.Mode';
+    var urlEdit = '@Url.Action("EditInden", "DO")';
+
+</script>
+<script src="~/content/printmanager/zip.js-master/zip.js"></script>
+<script src="~/content/printmanager/zip.js-master/zip-ext.js"></script>
+<script src="~/content/printmanager/zip.js-master/deflate.js"></script>
+<script src="~/content/printmanager/JSPrintManager.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script src="~/Script/DO/Inden.js" asp-append-version="true"></script>
+
+
+<div class="panel panel-default" id="indenForm">
+    <div class="panel-heading">
+        <div class="col-md-12 paddingleft0 divTitle">
+            <div class="col-md-4 paddingleft5 ">
+                <h6 class="panel-title">
+                    FORM Inden
+                </h6>
+            </div>
+
+            <div class=" floatright" style="float:right;">
+
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Save", "DO", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="" style="min-height:450px;">
+            <div class="panel-body page-content  container-fluid request-viewrequest" style="margin-left:0px;">
+                <div class="col-xs-12 col-sm-9 col-lg-11 page-left-content" style="min-height:450px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" style="display:none;">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">DO Number<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control inputPink" value="AUTO GENERATED" id="DONumber" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Status</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control inputPink" value="NEW" id="Status" disabled />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Sales<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="kasir" id="kasir" class="selectpicker width99 inputGreen" data-live-search="true" onchange="onCustomerChanged()">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Tanggal Inden<span class="red">*</span></label>
+                                        <div class="col-xs-12 col-sm-9 col-lg-4">
+                                            <div class='input-group date' id="divtanggal">
+                                                <input id='tanggal' type='text' class="form-control datepicker" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Customer<span class="red">*</span></label>
+                                        <div class="col-md-10">
+                                            <select name="Kd_Customer" id="Kd_Customer" class="selectpicker width99 inputGreen" data-live-search="true"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline" >
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">DP</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" value="" id="dp" type="number" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <label class="col-md-2 col-form-label">Printer</label>
+                                        <div class="col-md-10">
+                                            <select name="installedPrinterName" id="installedPrinterName" class="form-control"></select>
+                                            <input class="styled " type="checkbox" id="useDefaultPrinter">
+                                            <label for="useDefaultPrinter" class="">
+                                                Default Printer
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button id="addKota" class="btn btn-primary" onclick="onAddNewRow(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Item(F2)</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GridDO"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-3 col-lg-1 page-right-content">
+                    <div class=" row-navandbuttons">
+                        <div class="col-xs-12">
+                            <div id="right-content-buttons" class=" right-buttons">
+                                <div class="col-xs-12">
+                                    <div class=" ">
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;margin-top: 126px;">
+                                            <button id="back" class="btn btn-danger right-button" onclick="showCreate(); return false;"><i class="glyphicon glyphicon-file paddingRight10" aria-hidden="true"></i><span>NEW</span></button>
+                                        </div>
+                                        @if (ViewBag.Mode == "EDIT" || ViewBag.Mode == "NEW")
+                                        {
+                                            <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                                <button id="save" class="btn btn-primary right-button" onclick="onSaveClicked(); return false;"><i class="glyphicon glyphicon-floppy-disk paddingRight10" aria-hidden="true"></i><span>Simpan</span></button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                        <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+                                            <button id="print1" class="btn btn-success right-button" onclick="onPrintClicked(); return false;"><i class="glyphicon glyphicon-print paddingRight10" aria-hidden="true"></i><span>Print</span></button>
+                                        </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-navigatortoggler">
+                        <div class="col-xs-12 row-right-button">
+                            <button class="btn btn-default" data-toggle="collapse" data-target="#right-content-navigator, #right-content-buttons" onclick="return false;">
+                                <span>
+                                    <img src="~/images/expand-navigation-icon.png" class="navigatortoggler-icon">
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+
+    //WebSocket settings
+    JSPM.JSPrintManager.auto_reconnect = true;
+    JSPM.JSPrintManager.start();
+    JSPM.JSPrintManager.WS.onStatusChanged = function () {
+        if (jspmWSStatus()) {
+            //get client installed printers
+            JSPM.JSPrintManager.getPrinters().then(function (myPrinters) {
+                var options = '';
+                for (var i = 0; i < myPrinters.length; i++) {
+                    options += '<option>' + myPrinters[i] + '</option>';
+                }
+                $('#installedPrinterName').html(options);
+            });
+        }
+    };
+
+    //Check JSPM WebSocket status
+    function jspmWSStatus() {
+        if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+            return true;
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+            //alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+            return false;
+        }
+        else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.BlackListed) {
+            //  alert('JSPM has blacklisted this website!');
+            return false;
+        }
+    }
+
+    //Do printing...
+
+</script>

@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewData["Title"] = "Alokasi BO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+
+
+
+
+      var urlGetDetailInden = '@Url.Action("GetBOpaket", "DO")';
+    var urlInden = '@Url.Action("Inden", "DO")';
+    var urlGetDataInden = '@Url.Action("GetBOpaket", "DO")';
+    var urlGetDataPartial = '@Url.Action("GetBOpaketPartial", "DO")';
+    var urlGetCustomer = '@Url.Action("GetCustomer", "DO")';
+
+    var urlUpdate = '@Url.Action("UpdateBO", "DO")';
+
+
+</script>
+<script src="~/Script/DO/alokasi_BO.js" asp-append-version="true"></script>
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Form Alokasi Booking Order</span>
+        @*<div class="col-md-12" style="margin-bottom: 15px;">
+
+            </div>*@
+    </div>
+
+
+    <div class="panel-body">
+        @*filter*@
+        <div class="col-xs-12 col-sm-9 col-lg-12 form-c-inline">
+            <div class="row">
+
+                <div class="col-md-12" style="margin-bottom: 15px;">
+                    <div class="col-md-6">
+
+                        <div class="">
+                            <label class="col-md-1 col-form-label" style="margin-left: 10px;">Tanggal:</label>
+                            <div class="col-md-2">
+                                <div class='input-group date' id="divtanggalfrom">
+                                    <input id='tanggalfrom' type='text' class="form-control datepicker" value="" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-md-1 col-form-label" style="text-align:center">To:</label>
+                            <div class="col-md-2">
+                                <div class='input-group date' id="divtanggalto">
+                                    <input id='tanggalto' type='text' class="form-control datepicker" value="" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="addCustomer" type="button" class="btn btn-primary" onclick="getData1(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+
+
+                        <label class="col-md-2 col-form-label">Customer<span class="red">*</span></label>
+                        <div class="col-md-8">
+                            <select name="Kd_Customer" id="Kd_Customer" class="selectpicker w-100 inputGreen" data-live-search="true"></select>
+
+
+
+                        </div>
+                        <div class="col-md-2">
+                            <button id="addCustomer" type="button" class="btn btn-primary" onclick="getData2(); "><i class="glyphicon glyphicon-search"></i>Search</button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <button id="btnSave" class="btn btn-primary pull-right" onclick="onSaveClicked();"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp; Save Changes</button>
+    </div>
+
+  
+
+    <div class="col-md-12" style="display:inline-block;">
+        <div id="gvList" class="font10"></div>
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Details
+                    </li>
+                </ul>
+                <div>
+                    <div class="detail"></div>
+                </div>
+
+            </div>
+
+        </script>
+    </div>
+    <div class="col-xs-6 col-sm-12 row-right-button" style="text-align: left;">
+
+    </div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
