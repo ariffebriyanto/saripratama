@@ -1,0 +1,13 @@
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.dll.config
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.deps.json
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.runtimeconfig.json
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.runtimeconfig.dev.json
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.dll
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\bin\Debug\netcoreapp2.2\IFA.Console.pdb
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.csprojAssemblyReference.cache
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.AssemblyInfoInputs.cache
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.AssemblyInfo.cs
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.csproj.CoreCompileInputs.cache
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.dll
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.pdb
+C:\project\liquiderpspt\liquiderpspt\IFA.Console\obj\Debug\netcoreapp2.2\IFA.Console.genruntimeconfig.cache
