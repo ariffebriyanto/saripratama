@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Master Pet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetAll", "MPet")';
+    var urlForm = '@Url.Action("EditPet", "MPet")';
+    var urlSave = '@Url.Action("SavelistPet", "MPet")';
+    var urlDelete = '@Url.Action("DeletePet", "MPet")';
+    var urlUpdate = '@Url.Action("UpdatePet", "MPet")';
+    var urlSaveUpload = '@Url.Action("saveUpload", "MPet")';
+    var CboOwner = @(Html.Raw(ViewBag.OwnerList));
+
+</script>
+
+<script type="text/javascript" src="~/Script/Master/MPet.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Master Pet</span>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    @*<div>
+            <button id="addBrg" class="btn btn-primary pull-right" onclick="showForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Barang</button>
+        </div>*@
+
+    <div id="GridPet" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+

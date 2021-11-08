@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Master Owner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var urlGetData = '@Url.Action("GetAll", "MOwner")';
+    var urlForm = '@Url.Action("EditOwner", "MOwner")';
+    var urlSave = '@Url.Action("SavelistOwner", "MOwner")';
+    var urlDelete = '@Url.Action("DeleteOwner", "MOwner")';
+    var urlUpdate = '@Url.Action("UpdateOwner", "MOwner")';
+    var urlSaveUpload = '@Url.Action("saveUpload", "MOwner")';
+    var BarangCbo = @(Html.Raw(ViewBag.BarangList));
+   
+</script>
+
+<script type="text/javascript" src="~/Script/Master/MOwner.js" asp-append-version="true"></script>
+
+<div id="wrapperList">
+    <div class="panel-title">
+        <span class="fontTitle">Master Owner</span>
+
+    </div>
+    <div class="col-md-12" style="margin-bottom: 15px;">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <div class="">
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <button id="btnPrint" class="btn btn-info pull-right" onclick="printpage();" style="margin-right: 15px;display:none;"><i class="glyphicon glyphicon-print"></i>&nbsp; Cetak</button>
+
+        </div>
+    </div>
+
+    @*<div>
+            <button id="addBrg" class="btn btn-primary pull-right" onclick="showForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp; Tambah Barang</button>
+        </div>*@
+
+    <div id="GridOwner" style="display:inline-block;"></div>
+</div>
+<div id="editForm"></div>
+<div id="dialog"></div>
+
+
+
