@@ -138,6 +138,19 @@ namespace IFA.Domain.Models
 
     }
 
+    public class FilterSIF_Pet
+    {
+        public string pet { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
+        public int harga  { get; set; }
+        public string owner { get; set; }
+
+        public int kd_owner { get; set; }
+
+
+    }
+
     public class filterPOPartial
     {
        
