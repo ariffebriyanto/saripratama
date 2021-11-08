@@ -1,0 +1,509 @@
+﻿.font10 .k-grid-header .k-grid-header-wrap table thead tr th {
+    font-size: 10px !important;
+}
+
+.font10, .font10 .k-grid-content table tbody tr td {
+    font-size: 10px !important;
+}
+.padding79{
+    padding: 7px 9px;
+}
+.red {
+    color: red;
+}
+
+label {
+    font-weight: 700 !important;
+}
+h6 {
+    font-weight: 700 !important;
+}
+.fontTitle {
+    font-weight: 700 !important;
+}
+
+.panel-body {
+    background: #fafafa;
+}
+
+.maxWidth400 {
+    max-width: 400px;
+}
+
+.paddingleft0 {
+    padding-left: 0px;
+}
+
+.divTitle {
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+floatright {
+    float: right;
+}
+
+.panel-heading {
+    border-bottom: 0px;
+}
+
+.margintop10 {
+    margin-top: 10px;
+}
+
+.marginbot10 {
+    margin-bottom: 10px;
+}
+
+/*stepper*/
+.md-stepper-horizontal {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 8px -6px rgba(0,0,0,.50);
+}
+
+    .md-stepper-horizontal .md-step {
+        display: table-cell;
+        position: relative;
+        padding: 24px;
+    }
+
+        .md-stepper-horizontal .md-step:hover,
+        .md-stepper-horizontal .md-step:active {
+            background-color: rgba(0,0,0,0.04);
+        }
+
+        .md-stepper-horizontal .md-step:active {
+            border-radius: 15% / 75%;
+        }
+
+        .md-stepper-horizontal .md-step:first-child:active {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .md-stepper-horizontal .md-step:last-child:active {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .md-stepper-horizontal .md-step:hover .md-step-circle {
+            background-color: #757575;
+        }
+
+        .md-stepper-horizontal .md-step:first-child .md-step-bar-left,
+        .md-stepper-horizontal .md-step:last-child .md-step-bar-right {
+            display: none;
+        }
+
+        .md-stepper-horizontal .md-step .md-step-circle {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            background-color: #999999;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 45px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+    .md-stepper-horizontal.green .md-step.active .md-step-circle {
+        background-color: #00AE4D;
+    }
+
+    .md-stepper-horizontal.orange .md-step.active .md-step-circle {
+        background-color: #8bc34a;
+    }
+
+    .md-stepper-horizontal .md-step.active .md-step-circle {
+        background-color: rgb(33,150,243);
+    }
+
+    .md-stepper-horizontal .md-step.done .md-step-circle:before {
+        font-family: 'FontAwesome';
+        font-weight: 100;
+        content: "\f00c";
+    }
+
+    .md-stepper-horizontal .md-step.done .md-step-circle *,
+    .md-stepper-horizontal .md-step.editable .md-step-circle * {
+        display: none;
+    }
+
+    .md-stepper-horizontal .md-step.editable .md-step-circle {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+
+        .md-stepper-horizontal .md-step.editable .md-step-circle:before {
+            font-family: 'FontAwesome';
+            font-weight: 100;
+            content: "\f040";
+        }
+
+    .md-stepper-horizontal .md-step .md-step-title,
+    .md-stepper-horizontal .md-step .md-step-titleOrange {
+        margin-top: 16px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-title, .md-stepper-horizontal .md-step .md-step-titleOrange,
+    .md-stepper-horizontal .md-step .md-step-optional {
+        text-align: center;
+        color: rgba(0,0,0,.26);
+    }
+
+    .md-stepper-horizontal .md-step.active .md-step-title {
+        font-weight: 600;
+        color: rgba(0,0,0,.87);
+    }
+
+    .md-stepper-horizontal .md-step.active .md-step-titleOrange {
+        font-weight: 600;
+        color: orange;
+    }
+
+    .md-stepper-horizontal .md-step.active.done .md-step-title,
+    .md-stepper-horizontal .md-step.active.done .md-step-titleOrange,
+    .md-stepper-horizontal .md-step.active.editable .md-step-title {
+        font-weight: 600;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-optional {
+        font-size: 12px;
+    }
+
+    .md-stepper-horizontal .md-step.active .md-step-optional {
+        color: rgba(0,0,0,.54);
+    }
+
+    .md-stepper-horizontal .md-step .md-step-bar-left,
+    .md-stepper-horizontal .md-step .md-step-bar-right {
+        position: absolute;
+        top: 55px;
+        height: 1px;
+        border-top: 1px solid #DDDDDD;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-bar-right {
+        right: 0;
+        left: 50%;
+        margin-left: 40px;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-bar-left {
+        left: 0;
+        right: 50%;
+        margin-right: 40px;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-title-nomargin {
+        margin-top: 3px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-title-date {
+        color: #f54343 !important;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-title-nostatus {
+        margin-top: 3px;
+        font-size: 23px;
+        font-weight: 900 !important;
+        color: #58c509 !important;
+    }
+
+    .md-stepper-horizontal .md-step .md-step-title-notrequired {
+        margin-top: 3px;
+        font-size: 23px;
+        font-weight: 900 !important;
+        color: black !important;
+    }
+
+.approvalTitle {
+    font-size: 23px;
+    font-weight: 900 !important;
+    color: #58c509 !important;
+    text-align: center;
+    margin: auto;
+    width: 22%;
+    border: 3px solid #58c509;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*endStepper*/
+
+
+.hide-before:before {
+    display: none !important;
+}
+
+.tabpage a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '' !important;
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+}
+
+a[aria-expanded="true"]::before {
+    content: '' !important;
+}
+
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+
+
+.modal-body {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
+}
+
+body .modal-dialog {
+    max-width: 50%;
+    width: auto !important;
+    /*display: inline-block;*/
+}
+
+.k-filter-row th, .k-grid-header th.k-header {
+    text-align: center !important;
+}
+
+.k-primary, k-primary {
+    background-color: #204d74 !important;
+    border-color: none !important
+}
+
+.k-grid-norecords-template {
+    width: auto !important;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.colorWhite {
+    color: #fff !important;
+}
+
+.marginRight10 {
+    margin-right: 10px;
+}
+
+.panel-title {
+    margin-bottom: 25px !important;
+}
+
+.fontTitle {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.form-c-inline {
+    margin-bottom: 0px;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.panel-default > .panel-heading {
+    background-color: #fafafa;
+}
+
+.row {
+    display: block;
+}
+
+.marginLeft10 {
+    margin-right: 10px;
+}
+
+.paddingleft5 {
+    padding-left: 5px;
+}
+
+.page-container {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.nav {
+    width: 100%;
+    margin-left: 0px;
+}
+
+.paddingRight10 {
+    padding-right: 10px;
+}
+
+.icon-zoom-out2, .icon-zoom-out, .icon-zoom-in2, .icon-zoom-in, .icon-youtube2, .icon-youtube, .icon-yin-yang, .icon-yelp, .icon-yahoo, .icon-xing2, .icon-xing, .icon-wrench2, .icon-wrench, .icon-wordpress2, .icon-wordpress, .icon-wondering2, .icon-wondering, .icon-woman, .icon-wink2, .icon-wink, .icon-windy, .icon-windows8, .icon-windows, .icon-weather-snow, .icon-weather-rain, .icon-weather-lightning, .icon-wave2, .icon-wave, .icon-watch, .icon-warning, .icon-wand2, .icon-wand, .icon-volume5, .icon-volume4, .icon-volume3, .icon-volume2, .icon-volume1, .icon-volume0, .icon-volume-mute6, .icon-volume-mute5, .icon-volume-mute4, .icon-volume-mute3, .icon-volume-mute2, .icon-volume-mute, .icon-volume-medium2, .icon-volume-medium, .icon-volume-low2, .icon-volume-low, .icon-volume-increase2, .icon-volume-increase, .icon-volume-high2, .icon-volume-high, .icon-volume-decrease2, .icon-volume-decrease, .icon-vimeo3, .icon-vimeo2, .icon-vimeo, .icon-vector, .icon-vcard, .icon-users2, .icon-users, .icon-user4, .icon-user3, .icon-user2, .icon-user, .icon-user-plus3, .icon-user-plus2, .icon-user-plus, .icon-user-minus3, .icon-user-minus2, .icon-user-minus, .icon-user-cancel2, .icon-user-cancel, .icon-user-block2, .icon-user-block, .icon-upload5, .icon-upload4, .icon-upload3, .icon-upload2, .icon-upload, .icon-unlocked2, .icon-unlocked, .icon-undo2, .icon-undo, .icon-underline, .icon-umbrella, .icon-twitter3, .icon-twitter2, .icon-twitter, .icon-tv, .icon-tux, .icon-tumblr2, .icon-tumblr, .icon-truck, .icon-trophy2, .icon-trophy, .icon-trophy-star, .icon-tree3, .icon-tree2, .icon-tree, .icon-transmission2, .icon-transmission, .icon-tools, .icon-tongue2, .icon-tongue, .icon-ticket, .icon-thumbs-up4, .icon-thumbs-up3, .icon-thumbs-up2, .icon-thumbs-up, .icon-thumbs-down2, .icon-thumbs-down, .icon-text-width, .icon-text-height, .icon-text-color, .icon-target3, .icon-target2, .icon-target, .icon-tags2, .icon-tags, .icon-tag5, .icon-tag4, .icon-tag3, .icon-tag2, .icon-tag, .icon-tablet, .icon-table2, .icon-table, .icon-tab, .icon-switch, .icon-support, .icon-superscript2, .icon-superscript, .icon-sun2, .icon-sun, .icon-sun-glasses, .icon-subscript2, .icon-subscript, .icon-stumbleupon2, .icon-stumbleupon, .icon-strikethrough, .icon-storage2, .icon-storage, .icon-stopwatch, .icon-stop2, .icon-stop, .icon-steps, .icon-steam2, .icon-steam, .icon-stats3, .icon-stats2, .icon-stats, .icon-stats-up, .icon-stats-down, .icon-star6, .icon-star5, .icon-star4, .icon-star3, .icon-star2, .icon-star, .icon-stackoverflow, .icon-stack, .icon-spinner8, .icon-spinner7, .icon-spinner6, .icon-spinner5, .icon-spinner4, .icon-spinner3, .icon-spinner2, .icon-spinner, .icon-spell-check, .icon-spam, .icon-spades, .icon-soundcloud2, .icon-soundcloud, .icon-sort2, .icon-sort, .icon-smiley2, .icon-smiley, .icon-skype, .icon-skull2, .icon-skull, .icon-signup, .icon-sigma, .icon-shuffle2, .icon-shuffle, .icon-shocked2, .icon-shocked, .icon-shield2, .icon-shield, .icon-share3, .icon-share2, .icon-share, .icon-settings, .icon-search3, .icon-search2, .icon-search, .icon-screen2, .icon-screen, .icon-scissors2, .icon-scissors, .icon-safari, .icon-sad2, .icon-sad, .icon-rulers, .icon-rotate2, .icon-rotate, .icon-rocket, .icon-rock, .icon-road, .icon-right-to-left, .icon-reply2, .icon-reply, .icon-remove5, .icon-remove4, .icon-remove3, .icon-remove2, .icon-remove, .icon-redo2, .icon-redo, .icon-reddit, .icon-rating3, .icon-rating2, .icon-rating, .icon-radio, .icon-radio-unchecked, .icon-radio-checked, .icon-quotes-right3, .icon-quotes-right2, .icon-quotes-right, .icon-quotes-left, .icon-quill2, .icon-quill, .icon-question5, .icon-question4, .icon-question3, .icon-question2, .icon-question, .icon-queen, .icon-qrcode, .icon-pyramid, .icon-puzzle4, .icon-puzzle3, .icon-puzzle2, .icon-puzzle, .icon-pushpin, .icon-profile, .icon-print2, .icon-print, .icon-previous, .icon-power2, .icon-power, .icon-power-cord, .icon-popout, .icon-point-up, .icon-point-right, .icon-point-left, .icon-point-down, .icon-podium, .icon-podcast, .icon-plus, .icon-plus-circle2, .icon-plus-circle, .icon-playlist, .icon-play3, .icon-play2, .icon-play, .icon-pinterest2, .icon-pinterest, .icon-pilcrow, .icon-pie4, .icon-pie3, .icon-pie2, .icon-pie, .icon-picassa2, .icon-picassa, .icon-piano, .icon-phone5, .icon-phone4, .icon-phone3, .icon-phone2, .icon-phone, .icon-phone-hang-up2, .icon-phone-hang-up, .icon-people, .icon-pencil4, .icon-pencil3, .icon-pencil2, .icon-pencil, .icon-pen3, .icon-pen2, .icon-pen, .icon-peace, .icon-paypal3, .icon-paypal2, .icon-paypal, .icon-pawn, .icon-paw, .icon-pause2, .icon-pause, .icon-patch, .icon-paste3, .icon-paste2, .icon-paste, .icon-paragraph-right2, .icon-paragraph-right, .icon-paragraph-left2, .icon-paragraph-left, .icon-paragraph-justify2, .icon-paragraph-justify, .icon-paragraph-center2, .icon-paragraph-center, .icon-paper-plane, .icon-paint-format, .icon-pagebreak, .icon-page-break2, .icon-page-break, .icon-pacman, .icon-opera, .icon-omega, .icon-office, .icon-numbered-list, .icon-notification, .icon-notebook, .icon-next, .icon-newspaper, .icon-new, .icon-new-tab2, .icon-new-tab, .icon-neutral2, .icon-neutral, .icon-nbsp, .icon-music3, .icon-music2, .icon-music, .icon-mug, .icon-movie2, .icon-movie, .icon-move, .icon-mouse2, .icon-mouse, .icon-moon, .icon-mobile2, .icon-mobile, .icon-minus, .icon-minus-circle2, .icon-minus-circle, .icon-mic4, .icon-mic3, .icon-mic2, .icon-mic, .icon-meter2, .icon-meter, .icon-meter-slow, .icon-meter-medium, .icon-meter-fast, .icon-menu5, .icon-menu4, .icon-menu3, .icon-menu2, .icon-menu, .icon-megaphone, .icon-medal5, .icon-medal4, .icon-medal3, .icon-medal2, .icon-medal, .icon-marker, .icon-map3, .icon-map2, .icon-map, .icon-man, .icon-male, .icon-mail4, .icon-mail3, .icon-mail2, .icon-mail, .icon-mail-send, .icon-magnet, .icon-loop5, .icon-loop4, .icon-loop3, .icon-loop2, .icon-loop, .icon-lock3, .icon-lock2, .icon-lock, .icon-location4, .icon-location3, .icon-location2, .icon-location, .icon-list2, .icon-list, .icon-linkedin, .icon-link22, .icon-link6, .icon-link5, .icon-link4, .icon-link3, .icon-link2, .icon-link, .icon-lightning, .icon-libreoffice, .icon-library, .icon-left-to-right, .icon-leaf, .icon-lastfm2, .icon-lastfm, .icon-last, .icon-laptop, .icon-lanyrd, .icon-lamp3, .icon-lamp2, .icon-lamp, .icon-ladder, .icon-lab, .icon-knight, .icon-king, .icon-keyboard, .icon-key2, .icon-key, .icon-joomla, .icon-italic, .icon-instagram, .icon-insert-template, .icon-inject, .icon-info2, .icon-info, .icon-indent-increase, .icon-indent-decrease, .icon-images, .icon-image5, .icon-image4, .icon-image3, .icon-image2, .icon-image, .icon-IE, .icon-icon, .icon-html52, .icon-html5, .icon-home7, .icon-home6, .icon-home5, .icon-home4, .icon-home3, .icon-home2, .icon-home, .icon-history, .icon-heart6, .icon-heart5, .icon-heart4, .icon-heart3, .icon-heart2, .icon-heart, .icon-heart-broken3, .icon-heart-broken2, .icon-heart-broken, .icon-headphones2, .icon-headphones, .icon-happy2, .icon-happy, .icon-hanger, .icon-hammer2, .icon-hammer, .icon-gun, .icon-gun-ban, .icon-grin2, .icon-grin, .icon-grid4, .icon-grid3, .icon-grid2, .icon-grid, .icon-google, .icon-google-plus4, .icon-google-plus3, .icon-google-plus2, .icon-google-plus, .icon-google-drive, .icon-globe2, .icon-globe, .icon-glasses3, .icon-glasses2, .icon-glasses, .icon-glass2, .icon-glass, .icon-github5, .icon-github4, .icon-github3, .icon-github2, .icon-github, .icon-gift, .icon-gas-pump, .icon-foursquare2, .icon-foursquare, .icon-forward3, .icon-forward2, .icon-forward, .icon-forrst2, .icon-forrst, .icon-food2, .icon-food, .icon-font, .icon-font-size, .icon-folder8, .icon-folder3, .icon-folder2, .icon-folder, .icon-folder-upload2, .icon-folder-upload, .icon-folder-remove, .icon-folder-plus3, .icon-folder-plus2, .icon-folder-plus, .icon-folder-open2, .icon-folder-open, .icon-folder-minus3, .icon-folder-minus2, .icon-folder-minus, .icon-folder-download2, .icon-folder-download, .icon-flower, .icon-flip2, .icon-flip, .icon-flickr4, .icon-flickr3, .icon-flickr2, .icon-flickr, .icon-flattr, .icon-flag4, .icon-flag3, .icon-flag2, .icon-flag, .icon-first, .icon-firefox, .icon-fire, .icon-finder, .icon-filter4, .icon-filter3, .icon-filter2, .icon-filter, .icon-film3, .icon-film2, .icon-film, .icon-file7, .icon-file6, .icon-file5, .icon-file4, .icon-file3, .icon-file2, .icon-file, .icon-file-zip, .icon-file-xml, .icon-file-word, .icon-file-upload, .icon-file-remove, .icon-file-powerpoint, .icon-file-plus, .icon-file-pdf, .icon-file-openoffice, .icon-file-minus, .icon-file-excel, .icon-file-download, .icon-file-css, .icon-file-check, .icon-female, .icon-feed4, .icon-feed3, .icon-feed2, .icon-feed, .icon-fan, .icon-factory, .icon-facebook3, .icon-facebook2, .icon-facebook, .icon-eyedropper, .icon-eye7, .icon-eye6, .icon-eye5, .icon-eye4, .icon-eye3, .icon-eye2, .icon-eye, .icon-eye-blocked2, .icon-eye-blocked, .icon-expand2, .icon-expand, .icon-exit4, .icon-exit3, .icon-exit2, .icon-exit, .icon-evil2, .icon-evil, .icon-esc, .icon-equalizer3, .icon-equalizer2, .icon-equalizer, .icon-envelop2, .icon-envelop, .icon-enter5, .icon-enter4, .icon-enter3, .icon-enter2, .icon-enter, .icon-embed, .icon-eject, .icon-earth, .icon-dumbbell, .icon-droplet2, .icon-droplet, .icon-dribbble3, .icon-dribbble2, .icon-dribbble, .icon-drawer3, .icon-drawer2, .icon-drawer, .icon-download5, .icon-download4, .icon-download3, .icon-download2, .icon-download, .icon-disk, .icon-direction, .icon-dice, .icon-diamonds, .icon-diamond, .icon-deviantart2, .icon-deviantart, .icon-delicious, .icon-database2, .icon-database, .icon-dashboard, .icon-cursor2, .icon-cursor, .icon-cube2, .icon-cube, .icon-css3, .icon-crown, .icon-crop, .icon-credit, .icon-copy4, .icon-copy3, .icon-copy2, .icon-copy, .icon-cool2, .icon-cool, .icon-contrast, .icon-contract2, .icon-contract, .icon-contact-remove2, .icon-contact-remove, .icon-contact-add2, .icon-contact-add, .icon-construction, .icon-console, .icon-connection2, .icon-connection, .icon-confused2, .icon-confused, .icon-cone, .icon-compass2, .icon-compass, .icon-command, .icon-coin, .icon-cogs, .icon-cog4, .icon-cog3, .icon-cog2, .icon-cog, .icon-code, .icon-clubs, .icon-cloud, .icon-cloud-upload, .icon-cloud-download, .icon-close, .icon-clock4, .icon-clock3, .icon-clock2, .icon-clock, .icon-clipboard, .icon-clear-formatting, .icon-chrome, .icon-checkmark4, .icon-checkmark3, .icon-checkmark2, .icon-checkmark, .icon-checkmark-circle2, .icon-checkmark-circle, .icon-checkbox-unchecked, .icon-checkbox-partial, .icon-checkbox-checked, .icon-certificate, .icon-cc, .icon-cart5, .icon-cart4, .icon-cart3, .icon-cart2, .icon-cart, .icon-cart-remove2, .icon-cart-remove, .icon-cart-plus, .icon-cart-minus, .icon-cart-checkout, .icon-cart-add, .icon-car, .icon-cancel, .icon-cancel-circle2, .icon-cancel-circle, .icon-camera7, .icon-camera6, .icon-camera5, .icon-camera4, .icon-camera3, .icon-camera2, .icon-camera, .icon-call-outgoing, .icon-call-incoming, .icon-calendar4, .icon-calendar3, .icon-calendar2, .icon-calendar, .icon-calculate2, .icon-calculate, .icon-cake, .icon-cabinet, .icon-busy3, .icon-busy2, .icon-busy, .icon-bus, .icon-bullhorn, .icon-bug2, .icon-bug, .icon-bubbles6, .icon-bubbles5, .icon-bubbles4, .icon-bubbles3, .icon-bubbles2, .icon-bubbles, .icon-bubble6, .icon-bubble5, .icon-bubble4, .icon-bubble3, .icon-bubble2, .icon-bubble, .icon-bubble-video-chat, .icon-bubble-user, .icon-bubble-up, .icon-bubble-trash, .icon-bubble-star, .icon-bubble-right, .icon-bubble-reply, .icon-bubble-replu, .icon-bubble-quote, .icon-bubble-plus, .icon-bubble-paperclip, .icon-bubble-notification2, .icon-bubble-notification, .icon-bubble-minus, .icon-bubble-locked, .icon-bubble-link, .icon-bubble-left, .icon-bubble-last, .icon-bubble-heart, .icon-bubble-forward2, .icon-bubble-forward, .icon-bubble-first, .icon-bubble-down, .icon-bubble-dots2, .icon-bubble-dots, .icon-bubble-check, .icon-bubble-cancel, .icon-bubble-blocked, .icon-brightness-medium, .icon-brightness-low, .icon-brightness-high, .icon-brightness-contrast, .icon-briefcase3, .icon-briefcase2, .icon-briefcase, .icon-box-remove, .icon-box-add, .icon-bottle2, .icon-bottle, .icon-books, .icon-bookmarks, .icon-bookmark3, .icon-bookmark2, .icon-bookmark, .icon-book2, .icon-book, .icon-bold, .icon-boat, .icon-blogger2, .icon-blogger, .icon-blog, .icon-blocked, .icon-bishop, .icon-binoculars, .icon-bell, .icon-bed2, .icon-bed, .icon-basket2, .icon-basket, .icon-bars3, .icon-bars2, .icon-bars, .icon-barcode2, .icon-barcode, .icon-balloon, .icon-balance, .icon-backward2, .icon-backward, .icon-backspace3, .icon-backspace2, .icon-backspace, .icon-attachment2, .icon-attachment, .icon-arrow4, .icon-arrow3, .icon-arrow2, .icon-arrow, .icon-arrow-up11, .icon-arrow-up10, .icon-arrow-up9, .icon-arrow-up8, .icon-arrow-up7, .icon-arrow-up6, .icon-arrow-up5, .icon-arrow-up4, .icon-arrow-up3, .icon-arrow-up2, .icon-arrow-up, .icon-arrow-up-right5, .icon-arrow-up-right4, .icon-arrow-up-right3, .icon-arrow-up-right2, .icon-arrow-up-right, .icon-arrow-up-left5, .icon-arrow-up-left4, .icon-arrow-up-left3, .icon-arrow-up-left2, .icon-arrow-up-left, .icon-arrow-right12, .icon-arrow-right11, .icon-arrow-right10, .icon-arrow-right9, .icon-arrow-right8, .icon-arrow-right7, .icon-arrow-right6, .icon-arrow-right5, .icon-arrow-right4, .icon-arrow-right3, .icon-arrow-right2, .icon-arrow-right, .icon-arrow-left11, .icon-arrow-left10, .icon-arrow-left9, .icon-arrow-left8, .icon-arrow-left7, .icon-arrow-left6, .icon-arrow-left5, .icon-arrow-left4, .icon-arrow-left3, .icon-arrow-left2, .icon-arrow-left, .icon-arrow-first, .icon-arrow-down11, .icon-arrow-down10, .icon-arrow-down9, .icon-arrow-down8, .icon-arrow-down7, .icon-arrow-down6, .icon-arrow-down5, .icon-arrow-down4, .icon-arrow-down3, .icon-arrow-down2, .icon-arrow-down, .icon-arrow-down-right5, .icon-arrow-down-right4, .icon-arrow-down-right3, .icon-arrow-down-right2, .icon-arrow-down-right, .icon-arrow-down-left5, .icon-arrow-down-left4, .icon-arrow-down-left3, .icon-arrow-down-left2, .icon-arrow-down-left, .icon-archive, .icon-apple, .icon-apple-fruit, .icon-angry2, .icon-angry, .icon-android, .icon-anchor, .icon-alarm2, .icon-alarm, .icon-airplane2, .icon-airplane, .icon-aid, .icon-address-book, .icon-accessibility2, .icon-accessibility {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    /*line-height: 1;*/
+    line-height: 1.063;
+    vertical-align: middle;
+    -webkit-font-smoothing: antialiased;
+}
+
+.bootstrap-select {
+    min-width: 280px;
+}
+
+.paddingleft42 {
+    padding-left: 72px !important;
+}
+
+.inputPink {
+    background-color: lightpink !important;
+}
+
+.inputGreen {
+    background-color: lightgreen !important;
+}
+.minwidth74 {
+    min-width: 74% !important;
+}
+
+
+.inputGreen button {
+    background-color: lightgreen !important;
+}
+
+.width170 {
+    width: 170px !important;
+    min-width: 170px !important;
+}
+.dropdownMenu:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdownMenu-item:hover > .dropdown-menu {
+    display: block;
+}
+
+/*ul li {
+    list-style-type: none;
+    display: inline;
+}*/
+
+.navbar-nav .nav-link {
+    display: inline-block;
+}
+
+.ml-auto {
+    display: inline-block !important;
+}
+
+.dropdownMenu > .dropdown-toggle:active {
+    pointer-events: none;
+}
+
+.gradientBackground {
+    background: rgb(201,201,201);
+    background: linear-gradient(90deg, rgba(201,201,201,1) 0%, rgba(137,137,222,1) 45%, rgba(0,212,255,1) 100%);
+    /*background: #9053c7;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);*/
+}
+
+.borderStatus {
+    border: 1px solid #ccc !important;
+}
+
+.k-grid-header-wrap table thead tr th .k-checkbox-label {
+    display: none;
+}
+.k-checkbox-label:before{
+    margin-left:15px;
+}
+
+.maxheight410 .webGrid .k-grid-content {
+    max-height: 410px;
+}
+
+.bs-searchbox input{
+    max-width:100%;
+}
+
+body {
+    padding-top: 90px;
+}
+
+.bootstrap-select .dropdown-menu{
+    min-width:auto !important;
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+    display: block !important;
+    left: 100% !important;
+}
+
+.dropdown-submenu {
+    position: relative !important;
+}
+
+    .dropdown-submenu:hover .dropdown-menu {
+        top: 0 !important;
+    }
+
+
+
+.widthcboCustom .bootstrap-select {
+    min-width: 100%;
+    width: 100%;
+}
+
+.widthcboCustom50 .bootstrap-select {
+    min-width: 50%;
+    width: 90% !important;
+}
+
+.k-header {
+    font-weight: 700 !important;
+}
