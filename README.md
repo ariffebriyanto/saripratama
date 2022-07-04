@@ -1,26 +1,32 @@
 # saripratama
 Upload harga
-![image](https://user-images.githubusercontent.com/83152525/177107067-bc477dbf-ea78-4160-b0f4-ab5434dc795e.png)
+![image](https://user-images.githubusercontent.com/83152525/177121118-a9bf69bf-5bfd-4753-a6f7-287a69c5416c.png)
 
 
 INsert Master owner
-![image](https://user-images.githubusercontent.com/83152525/177107276-9120d45c-369d-4e3a-b0c9-4876a02ff353.png)
+![image](https://user-images.githubusercontent.com/83152525/177121249-853dd067-954f-42f6-a649-e8352ab63463.png)
+
 
 update owner
-![image](https://user-images.githubusercontent.com/83152525/177107409-f6aaec75-ef6c-48cd-843f-4204953f57c1.png)
+![image](https://user-images.githubusercontent.com/83152525/177121327-dfb075dc-a793-4824-983c-f2d2ae0308cf.png)
+
 
 
 delete owner
-![image](https://user-images.githubusercontent.com/83152525/177107554-0e7362d2-7548-42d7-ae74-036955987ff1.png)
-![image](https://user-images.githubusercontent.com/83152525/177107568-5c06e0f8-2473-4213-a0f0-8e5b26936462.png)
+![image](https://user-images.githubusercontent.com/83152525/177121443-4f23e6d1-2848-4ebe-aee3-e4d0c968b8b0.png)
+![image](https://user-images.githubusercontent.com/83152525/177121493-0808cb39-fd75-4a18-835d-47c3f66876a1.png)
+
 
 Setting Role
-![image](https://user-images.githubusercontent.com/83152525/177107840-8a860b89-b9cb-4bc8-9d4f-1d5febd1cf08.png)
+![image](https://user-images.githubusercontent.com/83152525/177121652-7c709ced-296b-4b65-9568-2ffe0df5397e.png)
+![image](https://user-images.githubusercontent.com/83152525/177121718-62ec8e88-3f2f-48f6-bdde-a8b84891a2c2.png)
+
 
 Daftar Approval po berdasarkan cabang
-![image](https://user-images.githubusercontent.com/83152525/177107937-63806cc3-9ae1-4b94-8083-7caf6aa69efb.png)
+![image](https://user-images.githubusercontent.com/83152525/177121983-c68f9f86-f487-44d1-9be2-04f29324e753.png)
 
-![image](https://user-images.githubusercontent.com/83152525/177107997-f1974011-9c9c-4ca7-a4db-c50ad80534a3.png)
 
+Grafik or chart
+![image](https://user-images.githubusercontent.com/83152525/177121003-177ba92a-e9ae-4dfc-89e8-4b2888e20884.png)
 
 
