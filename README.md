@@ -1,4 +1,19 @@
 # saripratama
+
+.NET CORE
+MVC 
+KENDO JS
+RAZOR
+
+![image](https://user-images.githubusercontent.com/83152525/177130744-4a5be291-d6d9-4496-bfb1-700b9210a18c.png)
+
+REST FULL API
+![image](https://user-images.githubusercontent.com/83152525/177130943-b0c0d04e-4d5e-43ee-97c6-a8db65e5d355.png)
+![image](https://user-images.githubusercontent.com/83152525/177131022-6c8af77c-3172-4515-a635-9a7fdf8cb873.png)
+
+
+
+
 Upload harga
 ![image](https://user-images.githubusercontent.com/83152525/177121118-a9bf69bf-5bfd-4753-a6f7-287a69c5416c.png)
 
